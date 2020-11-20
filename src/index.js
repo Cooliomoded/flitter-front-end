@@ -18,8 +18,19 @@ import storyReducer from './reducers/storyReducer'
 import userReducer from './reducers/userReducer'
 import './index.css'
 
+const rootReducer = combineReducers({
+  bio: bioReducer,
+  comment: commentReducer,
+  login: loginReducer,
+  logout: logoutReducer,
+  genre: storyGenreReducer,
+  story: storyReducer,
+  user: userReducer
+})
+
 const store = createStore(
-  userReducer,
+  rootReducer,
+  applyMiddleware(thunk),
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 

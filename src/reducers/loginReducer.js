@@ -1,3 +1,3 @@
-export default function loginReducer(
-    
-)
+export default function loginReducer(state = []) {
+    console.log('Login Reducer')
+}

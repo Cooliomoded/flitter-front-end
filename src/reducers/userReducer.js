@@ -1,10 +1,5 @@
-export default function userReducer(
-    state = {
-        stories: []
-    },
-    action
-) 
-{
+export default function userReducer(state = [], action) {
+    console.log('User Reducer')
     console.log(action)
     switch (action.type) {
             case 'UPVOTE':

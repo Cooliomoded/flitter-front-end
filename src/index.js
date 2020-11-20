@@ -1,12 +1,35 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import App from './App'
+
+import { Provider } from 'react-redux'
+import { applyMiddleware, combineReducers, createStore } from 'redux'
+import { BrowserRouter as Router } from 'react-router-dom'
+
+import thunk from 'redux-thunk'
+import reportWebVitals from './reportWebVitals'
+
+import bioReducer from './reducers/bioReducer'
+import commentReducer from './reducers/commentReducer'
+import loginReducer from './reducers/loginReducer'
+import logoutReducer from './reducers/logoutReducer'
+import storyGenreReducer from './reducers/storyGenreReducer'
+import storyReducer from './reducers/storyReducer'
+import userReducer from './reducers/userReducer'
+import './index.css'
+
+const store = createStore(
+  userReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+)
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );

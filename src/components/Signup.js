@@ -1,8 +1,42 @@
 import React from 'react'
+import { Component } from 'react'
 import { NavLink } from 'react-router-dom'
 
-const SignUp = () => {
+class SignUp extends Component {
+
+    store = {
+        username: '',
+        penname: '',
+        email: '',
+        profile_pic: '',
+        bio: '',
+        password: '',
+        password_confirmation: ''
+    }
+
+    handleOnChange = event => {
+        const { name, value } = event.target
+        this.setState({
+            [name]: value
+        })
+    }
+
+    handleOnSubmit = event => {
+        event.preventDefault()
+        let user = { ...this.state }
+        this.props.createUser(user)
+        this.setState({
+            username: '',
+            penname: '',
+            email: '',
+            profile_pic: '',
+            bio: '',
+            password: '',
+            password_confirmation: ''
+        })
+    }
     
+    render() {
     return(
         <div className='not-signup'>
             <NavLink to='/home'>
@@ -35,6 +69,7 @@ const SignUp = () => {
             Forgot your username or password?<br></br>
             <NavLink to='/support'>Account Support</NavLink>
             </div>
-    )
+        )
+    }
 }
 export default SignUp

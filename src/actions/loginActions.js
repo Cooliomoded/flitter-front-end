@@ -15,6 +15,7 @@ export const fetchLogin = (formData) => {
             let user = data.user
             dispatch({ type: 'LOGIN_USER', user })
             localStorage.setItem('token', data.token)
+            
         })
     }
 }
@@ -23,7 +24,7 @@ export const getProfileFetch = () => {
     return (dispatch) => {
         const token = localStorage.token
         if (token) {
-            return fetch('http:localhost:3000/users/show', {
+            return fetch('http://localhost:3000/initialFetch', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -33,6 +34,7 @@ export const getProfileFetch = () => {
             })
             .then(res => res.json())
             .then(data => {
+                console.log(data)
                 if (data.message) {
                     localStorage.removeItem('token')
                 } else {

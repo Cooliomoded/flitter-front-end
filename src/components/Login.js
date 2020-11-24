@@ -1,6 +1,8 @@
 import React from 'react'
 import { Component } from 'react'
 import { NavLink } from 'react-router-dom'
+import { fetchLogin, getProfileFetch } from '../actions/loginActions'
+import { connect } from 'react-redux'
 
 const link = {
     width: '100px',
@@ -21,17 +23,28 @@ class Login extends Component {
         username: '',
         password: ''
     }
-    
+
+    componentDidMount() {
+        this.props.getProfileFetch()
+    }
+
     handleOnChange = event => {
         let { name, value } = event.target
         this.setState({
             [name]: value
         })
+  
     }
 
     handleSubmit = event => {
         event.preventDefault()
-
+        let user = this.state
+        this.props.fetchLogin(user)
+        this.props.history.push('/home')
+        this.setState({
+            username: '',
+            password: ''
+        })
     }
     render(){
     return(
@@ -57,4 +70,5 @@ class Login extends Component {
         </div>
     )   
 }}
-export default Login
+
+export default connect(null, { fetchLogin, getProfileFetch })(Login)

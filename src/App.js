@@ -3,7 +3,7 @@ import { Component } from 'react'
 import { Route } from 'react-router-dom'
 import Login from './components/Login'
 import Signup from './components/Signup'
-import Home from './components/Home'
+import Home from './containers/Home'
 import Support from './components/Support'
 import './App.css';
 

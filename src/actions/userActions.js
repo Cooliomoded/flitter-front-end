@@ -1,7 +1,7 @@
 export const createUser = (user) => {
     const { username, penname, email, bio, profile_pic, password, password_confirmation } = user
     return (dispatch) => {
-        fetch('http://localhost:3000/create', {
+        fetch('http://localhost:3000/users/create', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -11,7 +11,7 @@ export const createUser = (user) => {
                 penname: penname,
                 email: email,
                 bio: bio,
-                profile_pic: profile_pic,
+                picture: profile_pic,
                 password: password,
                 password_confirmation: password_confirmation
             })

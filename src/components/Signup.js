@@ -59,7 +59,7 @@ class SignUp extends Component {
                     <input type="password" id="password" name="password" placeholder="*******"></input><br></br>
                     <label htmlFor="password_confirmation">Confirm Password:</label>
                     <input type="password" id="password_confirmation" name="password_confirmation" placeholder="*******"></input><br></br>
-                    <input type="submit" id="login-submit" name="login-submit"></input>
+                    <NavLink to='/'><input type="submit" id="login-submit" name="login-submit"></input></NavLink>
                 </form>
             </div>
             Forgot you were already a user?<br></br>

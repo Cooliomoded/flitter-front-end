@@ -1,6 +1,10 @@
-import React from 'react'
-import { Component } from 'react'
+import React, { Component } from 'react'
+
 import { NavLink } from 'react-router-dom'
+
+import { connect } from 'react-redux'
+
+import { createUser } from '../actions/userActions'
 
 class SignUp extends Component {
 
@@ -72,4 +76,4 @@ class SignUp extends Component {
         )
     }
 }
-export default SignUp
+export default connect(null, { createUser }) (SignUp)

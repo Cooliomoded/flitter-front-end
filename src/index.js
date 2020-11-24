@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom'
 import App from './App'
 
 import { Provider } from 'react-redux'
-import { applyMiddleware, combineReducers, createStore } from 'redux'
-import { BrowserRouter as Router } from 'react-router-dom'
+import { applyMiddleware, combineReducers, createStore, compose } from 'redux'
+import { BrowserRouter } from 'react-router-dom'
 
 import thunk from 'redux-thunk'
 import reportWebVitals from './reportWebVitals'
@@ -28,20 +28,29 @@ const rootReducer = combineReducers({
   user: userReducer
 })
 
+const composeEnhancers =
+  typeof window === `object` &&
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+      // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+    }) : compose;
+
+const enhancer = composeEnhancers(
+  applyMiddleware(thunk)
+  // other store enhancers if any
+);
+
 const store = createStore(
   rootReducer,
-  applyMiddleware(thunk),
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  enhancer
 )
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Router>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </Router>
-  </React.StrictMode>,
+  <BrowserRouter>
+    <Provider store={store}>  
+      <App />
+    </Provider>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 

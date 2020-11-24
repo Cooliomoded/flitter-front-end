@@ -15,12 +15,12 @@ export const fetchLogin = (formData) => {
             let user = data.user
             dispatch({ type: 'LOGIN_USER', user })
             localStorage.setItem('token', data.token)
-            
         })
     }
 }
 
 export const getProfileFetch = () => {
+    console.log("string from profile fetch")
     return (dispatch) => {
         const token = localStorage.token
         if (token) {
@@ -34,7 +34,6 @@ export const getProfileFetch = () => {
             })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 if (data.message) {
                     localStorage.removeItem('token')
                 } else {

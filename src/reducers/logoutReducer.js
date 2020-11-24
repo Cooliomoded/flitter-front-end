@@ -1,8 +1,4 @@
-const initialState = {
-    currentUser: {}
-}
-
-export default function logoutReducer(state = initialState, action) {
+export default function logoutReducer(state = [], action) {
     switch(action.type) {
         case 'LOGOUT_USER':
             localStorage.removeItem('token')

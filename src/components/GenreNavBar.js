@@ -1,6 +1,8 @@
 import React from 'react'
 import { Component } from 'react'
 
+import { NavLink } from 'react-router-dom'
+
 class GenreNavBar extends Component {
 
     render(){

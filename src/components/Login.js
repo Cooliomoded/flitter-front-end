@@ -40,7 +40,7 @@ class Login extends Component {
         event.preventDefault()
         let user = this.state
         this.props.fetchLogin(user)
-        this.props.history.push('/home')
+        // this.props.history.push('/home')
         this.setState({
             username: '',
             password: ''
@@ -49,6 +49,7 @@ class Login extends Component {
     render(){
     return(
         <div className="not-login">
+
             <NavLink className="navlink" to='/home' style={link} activeStyle={clickedLink}>
                Stories Index
             </NavLink>
@@ -71,4 +72,10 @@ class Login extends Component {
     )   
 }}
 
-export default connect(null, { fetchLogin, getProfileFetch })(Login)
+const mapStateToProps = (state) => {
+    return {
+        user: state.login
+    }
+}
+
+export default connect(mapStateToProps, { fetchLogin, getProfileFetch })(Login)

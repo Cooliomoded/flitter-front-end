@@ -9,6 +9,7 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 import Home from './containers/Home'
 import Support from './components/Support'
+import UserStories from './components/UserStories'
 
 import { fetchStories } from './actions/storyActions'
 import { getProfileFetch } from './actions/loginActions'
@@ -16,11 +17,6 @@ import './App.css';
 
 class App extends Component {
   componentDidMount(){
-
-    fetch('http://localhost:3000/stories')
-    .then(res => res.json())
-    .then(data => console.log(data))
-
     fetchStories()
     getProfileFetch()
   }
@@ -31,11 +27,22 @@ class App extends Component {
       <Switch>
      <Route exact path="/" component={Login}/>
      <Route path="/signup" component={Signup} />
-     <Route path="/home" component={Home} />
+     <Route path="/index" render={routerProps => <Home {...routerProps} stories={this.props.stories} />} />
+     {/* <Route path='/index/:storyId' component={StoryShow} /> */}
      <Route path="/support" component={Support} />
+     <Route path="/my-stories" render={routerProps => <UserStories {...routerProps} user={this.props.user} />} />
      </Switch>
     </div>
   )};
 }
 
-export default connect (null, { fetchStories, getProfileFetch })(App);
+
+const mapStateToProps = state => {
+  return {
+      stories: state.story,
+      user: state.user
+  }
+}
+
+
+export default connect (mapStateToProps, { fetchStories, getProfileFetch })(App);

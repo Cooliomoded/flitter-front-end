@@ -13,7 +13,7 @@ import bioReducer from './reducers/bioReducer'
 import commentReducer from './reducers/commentReducer'
 import loginReducer from './reducers/loginReducer'
 import logoutReducer from './reducers/logoutReducer'
-import storyGenreReducer from './reducers/storyGenreReducer'
+import genreReducer from './reducers/genreReducer'
 import storyReducer from './reducers/storyReducer'
 import userReducer from './reducers/userReducer'
 import './index.css'
@@ -23,7 +23,7 @@ const rootReducer = combineReducers({
   comment: commentReducer,
   login: loginReducer,
   logout: logoutReducer,
-  genre: storyGenreReducer,
+  genre: genreReducer,
   story: storyReducer,
   user: userReducer
 })

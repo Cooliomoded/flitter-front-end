@@ -1,12 +1,10 @@
 
 export const fetchStories = () => {
-    console.log('story string')
     return (dispatch) => {
         dispatch({type: 'REQUEST_STORIES'})
         fetch('http://localhost:3000/stories')
             .then(res => res.json())
             .then(data => {
-        console.log(data)
         let stories = data
         dispatch({type: 'GET_STORIES', stories})
     })
@@ -68,5 +66,9 @@ export const likeStory = (story) => {
 }
 
 export const deleteStory = (story) => {
-    return "hello"
+    fetch(`http://localhost:3000/stories/${story.id}`, {
+        method: 'DELETE',
+    })
+    .then(res => res.json())
+    .then(data => console.log(data))
 }

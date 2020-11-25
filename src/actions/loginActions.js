@@ -20,7 +20,6 @@ export const fetchLogin = (formData) => {
 }
 
 export const getProfileFetch = () => {
-    console.log("string from profile fetch")
     return (dispatch) => {
         const token = localStorage.token
         if (token) {

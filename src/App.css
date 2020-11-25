@@ -29,11 +29,16 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.nav-bar {
+  vertical-align: middle;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: red;
+}
+
+.genre-filter {
+  margin-top: 40px;
+  width: 200px;
+  column-width: 100px;
+  background-color: aqua;
 }

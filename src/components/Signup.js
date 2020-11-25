@@ -28,7 +28,9 @@ class SignUp extends Component {
     handleOnSubmit = event => {
         event.preventDefault()
         let user = { ...this.state }
+        console.log(user)
         this.props.createUser(user)
+        this.props.history.push('/index')
         this.setState({
             username: '',
             penname: '',
@@ -43,27 +45,27 @@ class SignUp extends Component {
     render() {
     return(
         <div className='not-signup'>
-            <NavLink to='/home'>
+            <NavLink to='/index'>
                 Story Index
             </NavLink>
             <div className='signup'>
-                <form>
+                <form onSubmit={this.handleOnSubmit}>
                     <h2>Sign Up:</h2>
                     <label htmlFor="username">Username:</label>
-                    <input type="text" id="username" name="username" placeholder="Michael Toncreigh"></input><br></br>
+                    <input onChange={this.handleOnChange} type="text" id="username" name="username" placeholder="Michael Toncreigh" required></input><br></br>
                     <label htmlFor="penname">Pen Name:</label>
-                    <input type="text" id="penname" name="penname" placeholder="Bruce Acewill"></input><br></br>
+                    <input onChange={this.handleOnChange} type="text" id="penname" name="penname" placeholder="Bruce Acewill" required></input><br></br>
                     <label htmlFor="email">Email:</label>
-                    <input type="text" id="email" name="email" placeholder="email@address.com"></input><br></br>
+                    <input onChange={this.handleOnChange} type="text" id="email" name="email" placeholder="email@address.com" required></input><br></br>
                     <label htmlFor="profile_pic">Profile Pic URL:</label>
-                    <input type="text" id="profile_pic" name="profile_pic"></input><br></br>
+                    <input onChange={this.handleOnChange} type="text" id="profile_pic" name="profile_pic"></input><br></br>
                     <label htmlFor="bio">Bio:</label>
-                    <input type="text" id="bio" name="bio" placeholder="Bio"></input><br></br><br></br>
+                    <input onChange={this.handleOnChange} type="text" id="bio" name="bio" placeholder="Bio" required></input><br></br><br></br>
                     <label htmlFor="password">Password:</label>
-                    <input type="password" id="password" name="password" placeholder="*******"></input><br></br>
+                    <input onChange={this.handleOnChange} type="password" id="password" name="password" placeholder="*******" required></input><br></br>
                     <label htmlFor="password_confirmation">Confirm Password:</label>
-                    <input type="password" id="password_confirmation" name="password_confirmation" placeholder="*******"></input><br></br>
-                    <NavLink to='/'><input type="submit" id="login-submit" name="login-submit"></input></NavLink>
+                    <input onChange={this.handleOnChange} type="password" id="password_confirmation" name="password_confirmation" placeholder="*******" required></input><br></br>
+                    <input type="submit" id="login-submit" name="login-submit"></input>
                 </form>
             </div>
             Forgot you were already a user?<br></br>

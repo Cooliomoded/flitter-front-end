@@ -1,24 +1,31 @@
 export const createUser = (user) => {
     
-    const { username, penname, email, bio, profile_pic, password, password_confirmation } = user
+    const { username, penname, email, bio, profile_pic, password } = user
     
     return (dispatch) => {
-        fetch('http://localhost:3000/users/create', {
+        fetch('http://localhost:3000/users', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             },
             body: JSON.stringify({
+                user: {
                 username: username,
                 penname: penname,
                 email: email,
                 bio: bio,
                 picture: profile_pic,
                 password: password,
-                password_confirmation: password_confirmation
+                }
             })
         })
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => {
+            let user = data.user
+            dispatch({type: 'LOGIN_USER', user})
+            localStorage.removeItem('token')
+            localStorage.setItem('token', data.token)
+        })
     }
 }

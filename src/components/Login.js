@@ -40,7 +40,7 @@ class Login extends Component {
         event.preventDefault()
         let user = this.state
         this.props.fetchLogin(user)
-        // this.props.history.push('/home')
+        this.props.history.push('/index')
         this.setState({
             username: '',
             password: ''
@@ -50,7 +50,7 @@ class Login extends Component {
     return(
         <div className="not-login">
 
-            <NavLink className="navlink" to='/home' style={link} activeStyle={clickedLink}>
+            <NavLink className="navlink" to='/index' style={link} activeStyle={clickedLink}>
                Stories Index
             </NavLink>
             <div className="login">

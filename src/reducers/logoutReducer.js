@@ -3,6 +3,7 @@ export default function logoutReducer(state = [], action) {
         case 'LOGOUT_USER':
             localStorage.removeItem('token')
             return {
+                ...state,
                 currentUser: {}
             }
         default:

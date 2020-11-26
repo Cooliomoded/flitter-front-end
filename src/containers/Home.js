@@ -23,13 +23,15 @@ class Home extends Component {
 
     render() {
         return(
-            <div>
+            <div className='home-page'>
                 <UserNavBar />
-                <GenreNavBar></GenreNavBar>
-                <div>
-                    <StoryContainer stories={this.props.stories}></StoryContainer>
-                    <Route path={`${this.props.match.url}/:storyId`} render={routerProps =><StoryShow {...routerProps} stories={this.props.stories}/>}/>
-                </div>
+                    <div className='navbar-container'>
+                        <GenreNavBar></GenreNavBar>
+                    <div className='story-container'>
+                        <StoryContainer stories={this.props.stories}></StoryContainer>
+                        <Route path={`${this.props.match.url}/:storyId`} render={routerProps =><StoryShow {...routerProps} stories={this.props.stories}/>}/>
+                    </div>
+                    </div>
             </div>
         )
     }

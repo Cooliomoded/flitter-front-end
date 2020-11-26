@@ -10,6 +10,7 @@ import Signup from './components/Signup'
 import Home from './containers/Home'
 import Support from './components/Support'
 import UserStories from './components/UserStories'
+import StoryWrite from './components/StoryWrite'
 
 import { fetchStories } from './actions/storyActions'
 import { getProfileFetch } from './actions/loginActions'
@@ -17,11 +18,11 @@ import './App.css';
 
 class App extends Component {
   componentDidMount(){
-    fetchStories()
-    getProfileFetch()
+    this.props.getProfileFetch()
   }
 
   render(){
+    console.log(this.props.user)
   return (
     <div className="App">
       <Switch>
@@ -31,6 +32,7 @@ class App extends Component {
      {/* <Route path='/index/:storyId' component={StoryShow} /> */}
      <Route path="/support" component={Support} />
      <Route path="/my-stories" render={routerProps => <UserStories {...routerProps} user={this.props.user} />} />
+     <Route path="/write" component={StoryWrite} />
      </Switch>
     </div>
   )};
@@ -40,7 +42,7 @@ class App extends Component {
 const mapStateToProps = state => {
   return {
       stories: state.story,
-      user: state.user
+      user: state.login
   }
 }
 

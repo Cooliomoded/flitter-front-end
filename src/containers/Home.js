@@ -9,6 +9,8 @@ import StoryShow from '../components/StoryShow'
 
 import { editStory, deleteStory, fetchStories } from '../actions/storyActions'
 import { fetchGenres } from '../actions/genreActions'
+import { getProfileFetch } from '../actions/loginActions'
+
 
 
 class Home extends Component {
@@ -16,7 +18,7 @@ class Home extends Component {
     componentDidMount() {
         this.props.fetchStories()
         this.props.fetchGenres()
-        this.props.fetch
+        this.props.getProfileFetch()
     }
 
     render() {
@@ -44,7 +46,8 @@ const mapDispatchToProps = dispatch => ({
     editStory: (story) => dispatch(editStory(story)),
     deleteStory: (story) => dispatch(deleteStory(story)),
     fetchStories: () => dispatch(fetchStories()),
-    fetchGenres: () => dispatch(fetchGenres())
+    fetchGenres: () => dispatch(fetchGenres()),
+    getProfileFetch: () => dispatch(getProfileFetch())
 })
 
 export default connect (mapStateToProps, mapDispatchToProps)(Home)

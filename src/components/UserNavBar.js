@@ -15,6 +15,10 @@ const clickedLink = {
     background: 'darkblue'
   }
 
+const handleLogout = () => {
+    localStorage.clear()
+}
+
 const UserNavBar = () => {
     return (
         <div className='nav-bar'>
@@ -22,7 +26,7 @@ const UserNavBar = () => {
             <NavLink className='navlink' to='/my-stories' style={link} activeStyle={clickedLink}>My Stories</NavLink>
             <NavLink className='navlink' to='/write' style={link} activeStyle={clickedLink}>New Story</NavLink>
             <NavLink className='navlink' to='/index' style={link} activeStyle={clickedLink}>Stories Index</NavLink>
-            <NavLink className='navlink' to='/' style={link} activeStyle={clickedLink}>{localStorage.clear()}Log Out</NavLink>
+            <NavLink className='navlink' to='/' style={link} activeStyle={clickedLink}>Log Out</NavLink>
         </div>
     )
 }

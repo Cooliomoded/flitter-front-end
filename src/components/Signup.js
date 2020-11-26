@@ -28,7 +28,6 @@ class SignUp extends Component {
     handleOnSubmit = event => {
         event.preventDefault()
         let user = { ...this.state }
-        console.log(user)
         this.props.createUser(user)
         this.props.history.push('/index')
         this.setState({

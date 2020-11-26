@@ -4,7 +4,7 @@ const UserStories = ({ stories }) => {
     console.log(stories)
     return(
         <div>
-            {/* {stories.map(story => <div>{story.title}</div>)} */}
+            Hello from user stories
         </div>
     )
 }

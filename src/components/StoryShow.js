@@ -1,7 +1,7 @@
 import React from 'react'
 
 const StoryShow = ( {match, stories} ) => {
-    console.log(stories)
+    console.log(stories.stories[match.params.storyId])
 
     return(
         // <div>
@@ -16,6 +16,9 @@ const StoryShow = ( {match, stories} ) => {
             </div>
             <div className="story-page-content">
                 <p>{ stories.stories[match.params.storyId].content }</p>
+            </div>
+            <div className="story-page-comments">
+                {stories.stories[match.params.storyId].comments.map(comment => <p key={comment.id}>{comment.content}</p>)}
             </div>
         </div>
     )

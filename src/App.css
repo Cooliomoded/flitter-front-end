@@ -1,6 +1,8 @@
 .App {
   text-align: center;
-  background: beige;
+  background: grey;
+  height: 100vh;
+  width: 100vw;
 }
 
 .App-logo {
@@ -29,11 +31,32 @@
   color: #61dafb;
 }
 
+.App .ql-editor {
+  min-height: 18em;
+}
+
+.App .ql-snow.ql-toolbar {
+  display: block;
+  background: #eaecec;
+  border-top-left-radius: 0.5em;
+  border-top-right-radius: 0.5em;
+}
+
+.App .ql-container {
+  border-bottom-left-radius: 0.5em;
+  border-bottom-right-radius: 0.5em;
+  background: #fefcfc;
+}
+
 .nav-bar {
+  position: fixed;
+  top: 0vh;
   vertical-align: middle;
-  margin-top: 20px;
   margin-bottom: 20px;
   background-color: red;
+  width: 100%;
+  height: 100px;
+  padding: 0px 10px;
 }
 
 .genre-filter {
@@ -43,7 +66,27 @@
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
   left: 0;
-  background-color: #111; /* Black */
+  background-color: aqua; /* Black */
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 20px;
+  margin-top: 100px;
+}
+
+.story-container {
+  margin-left: 160px; /* Same as the width of the sidebar */
+  padding: 0px 10px;
+}
+
+.quill-container {
+  margin: 1rem 4rem;
+  background: grey;
+  font-family: sans-serif;
+}
+
+.story-container {
+  margin-top: 100px;
+}
+
+.story-page {
+  margin-top: 100px;
 }

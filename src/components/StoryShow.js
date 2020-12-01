@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-const StoryShow = ( {match, stories} ) => {
-    console.log(stories.stories[match.params.storyId])
 
+class StoryShow extends Component {
+
+    componentWillUnmount(){
+    }
+
+    render(){
+    const { match, stories } = this.props
     return(
-        // <div>
-        // {console.log(match, stories)}
-        // </div>
         <div className="story-page">
             <div className="story-page-title-info">
                 <h3>{ stories.stories[match.params.storyId].title }</h3>
@@ -22,6 +24,7 @@ const StoryShow = ( {match, stories} ) => {
             </div>
         </div>
     )
+    }
 }
 
 export default StoryShow

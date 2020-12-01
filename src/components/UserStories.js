@@ -1,12 +1,40 @@
-import React from 'react'
+import React, { Component } from 'react'
+import NavBar from './UserNavBar'
+import StoryCard from './StoryCard'
 
-const UserStories = ({ stories }) => {
-    console.log(stories)
+import { connect } from 'react-redux'
+
+class UserStories extends Component {
+    
+    state = {
+        userStories : []
+    }
+
+    componentDidMount(){
+        this.setState({
+        })
+    }
+    render() {
+    console.log(this.props.stories.stories)
+    console.log(this.props.user.currentUser.stories)
     return(
         <div>
-            Hello from user stories
+            {/* <NavBar></NavBar>
+            {user.currentUser.stories.map(story => {
+                return(
+                    <StoryCard key={story.id} story={story}></StoryCard>
+                )
+            })}
+             */}
         </div>
     )
+    }
 }
 
-export default UserStories
+const mapStateToProps = (state) => {
+    return {
+        stories: state.story
+    }
+}
+
+export default connect(mapStateToProps)(UserStories)

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import StoryCard from '../components/StoryCard'
 
@@ -9,17 +10,29 @@ class StoryContainer extends Component {
         toggleReadStory: false
     }
 
+    componentDidMount(){
+        this.setState({
+            toggleReadStory: false
+        })
+    }
+
     handleOnClick = () => {
         this.setState({
             toggleReadStory: !this.state.toggleReadStory
         })
     }
 
+    handleCardDismount = () => {
+        this.setState({
+            toggleReadStory: false
+        })
+    }
+
     render(){
-        const { stories } = this.props
-        const renderStories = Object.keys(stories.stories).map(storyId =>
+        const { storiesFromState } = this.props
+        const renderStories = Object.keys(storiesFromState.stories).map(storyId =>
         <div className="story-link">
-            <Link onClick={this.handleOnClick} key={storyId} to={`/index/${storyId}`}><StoryCard story={stories.stories[storyId]}></StoryCard></Link>
+            <Link onClick={this.handleOnClick} key={storyId} to={`/index/${storyId}`}><StoryCard story={storiesFromState.stories[storyId]}></StoryCard></Link>
         </div>
         )
 
@@ -30,4 +43,10 @@ class StoryContainer extends Component {
         )
     }   
 }
-export default StoryContainer
+
+const mapStateToProps = (state) => {
+    return {
+        storiesFromState: state.story
+    }
+} 
+export default connect(mapStateToProps)(StoryContainer)

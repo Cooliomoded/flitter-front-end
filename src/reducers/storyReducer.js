@@ -18,6 +18,12 @@ export default function storyReducer(state = initialState, action) {
                 stories: action.stories,
                 requesting: false
             }
+        
+        case "ADD_STORY":
+            return {
+                ...state,
+                stories: [...state.stories, action.newStory]
+            }
 
         case "UPVOTE_STORY":
             idx = state.findIndex(story => story.id === action.storyId)

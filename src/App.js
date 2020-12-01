@@ -19,6 +19,7 @@ import './App.css';
 class App extends Component {
   componentDidMount(){
     this.props.getProfileFetch()
+    this.props.fetchStories()
   }
 
   render(){

@@ -28,7 +28,7 @@ class Home extends Component {
                     <div className='navbar-container'>
                         <GenreNavBar></GenreNavBar>
                     <div className='story-container'>
-                        <StoryContainer stories={this.props.stories}></StoryContainer>
+                        <StoryContainer></StoryContainer>
                         <Route path={`${this.props.match.url}/:storyId`} render={routerProps =><StoryShow {...routerProps} stories={this.props.stories}/>}/>
                     </div>
                     </div>
@@ -39,8 +39,8 @@ class Home extends Component {
 
 const mapStateToProps = state => {
     return {
-        stories: state.story,
-        user: state.user
+        user: state.user,
+        stories: state.story
     }
 }
 

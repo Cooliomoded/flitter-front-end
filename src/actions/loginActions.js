@@ -13,8 +13,8 @@ export const fetchLogin = (formData) => {
         .then(res => res.json())
         .then(data => {
             let user = data.user
-            dispatch({ type: 'LOGIN_USER', user })
             localStorage.setItem('token', data.token)
+            dispatch({ type: 'LOGIN_USER', user })
         })
     }
 }

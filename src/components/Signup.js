@@ -59,7 +59,7 @@ class SignUp extends Component {
                     <label htmlFor="profile_pic">Profile Pic URL:</label>
                     <input onChange={this.handleOnChange} type="text" id="profile_pic" name="profile_pic"></input><br></br>
                     <label htmlFor="bio">Bio:</label>
-                    <input onChange={this.handleOnChange} type="text" id="bio" name="bio" placeholder="Bio" required></input><br></br><br></br>
+                    <input onChange={this.handleOnChange} type="textarea" id="bio" name="bio" placeholder="Bio" required></input><br></br><br></br>
                     <label htmlFor="password">Password:</label>
                     <input onChange={this.handleOnChange} type="password" id="password" name="password" placeholder="*******" required></input><br></br>
                     <label htmlFor="password_confirmation">Confirm Password:</label>

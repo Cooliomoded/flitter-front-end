@@ -9,6 +9,7 @@ import Login from './components/Login'
 import Signup from './components/Signup'
 import Home from './containers/Home'
 import Support from './components/Support'
+import Profile from './components/Profile'
 import UserStories from './components/UserStories'
 import StoryWrite from './components/StoryWrite'
 
@@ -23,12 +24,12 @@ class App extends Component {
   }
 
   render(){
-    console.log(this.props.user)
   return (
     <div className="App">
       <Switch>
      <Route exact path="/" component={Login}/>
      <Route path="/signup" component={Signup} />
+     <Route path="/profile" component={Profile} />
      <Route path="/index" render={routerProps => <Home {...routerProps} stories={this.props.stories} />} />
      {/* <Route path='/index/:storyId' component={StoryShow} /> */}
      <Route path="/support" component={Support} />

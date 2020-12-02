@@ -23,8 +23,10 @@ class Profile extends Component {
 
     submitProfile = () => {
         let user = this.state
-        console.log(user)
         this.props.editUser(user)
+        this.setState({
+            editToggle: !this.state.editToggle
+        })
     }
 
     editUserProfile = () => {

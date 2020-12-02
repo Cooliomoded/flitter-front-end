@@ -30,7 +30,7 @@ class App extends Component {
      <Route exact path="/" component={Login}/>
      <Route path="/signup" component={Signup} />
      <Route path="/profile" component={Profile} />
-     <Route path="/index" render={routerProps => <Home {...routerProps} stories={this.props.stories} />} />
+     <Route path="/index" render={(routerProps) => <Home {...routerProps} stories={this.props.stories} />} />
      {/* <Route path='/index/:storyId' component={StoryShow} /> */}
      <Route path="/support" component={Support} />
      <Route path="/my-stories" render={routerProps => <UserStories {...routerProps} user={this.props.user} />} />

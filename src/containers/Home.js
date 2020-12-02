@@ -15,22 +15,21 @@ import { getProfileFetch } from '../actions/loginActions'
 
 class Home extends Component {
 
-    componentDidMount() {
-        this.props.fetchStories()
-        this.props.fetchGenres()
-        this.props.getProfileFetch()
+    async componentDidMount() {
+        await this.props
+        await this.props.fetchStories()
+        await this.props.fetchGenres()
+        await this.props.getProfileFetch()
+     
     }
 
     render() {
         return(
             <div className='home-page'>
                 <UserNavBar />
-                    <div className='navbar-container'>
-                        <GenreNavBar></GenreNavBar>
                     <div className='story-container'>
-                        <StoryContainer></StoryContainer>
-                        <Route path={`${this.props.match.url}/:storyId`} render={routerProps =><StoryShow {...routerProps} stories={this.props.stories}/>}/>
-                    </div>
+                        <StoryContainer {...this.props}></StoryContainer>
+                        {/* <Route path={`${this.props.match.url}/:storyId`} render={routerProps =><StoryShow {...routerProps} stories={this.props.stories}/>}/> */}
                     </div>
             </div>
         )
@@ -40,7 +39,8 @@ class Home extends Component {
 const mapStateToProps = state => {
     return {
         user: state.user,
-        stories: state.story
+        stories: state.story,
+        genres: state.genre
     }
 }
 

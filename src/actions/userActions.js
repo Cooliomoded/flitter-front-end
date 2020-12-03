@@ -13,12 +13,12 @@ export const createUser = (user) => {
             },
             body: JSON.stringify({
                 user: {
-                username: username,
-                penname: penname,
-                email: email,
-                bio: bio,
-                picture: profile_pic,
-                password: password,
+                    username: username,
+                    penname: penname,
+                    email: email,
+                    bio: bio,
+                    picture: profile_pic,
+                    password: password,
                 }
             })
         })

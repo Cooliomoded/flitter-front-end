@@ -64,7 +64,7 @@ export const createStoryGenres = (story, genre) => {
 export const editStory = (story) => {
     const token = localStorage.token
     fetch(`http://localhost:3000/stories/${story.storyId}`, {
-        method: 'POST',
+        method: 'PATCH',
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
@@ -80,22 +80,71 @@ export const editStory = (story) => {
 }
 
 export const likeStory = (story) => {
-    fetch(`http://localhost:3000/stories/${story.id}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: {
-            likes: story.likes
-        }
-    })
-    .then(res => res.json())
-    .then(data => console.log(data))
+    const token = localStorage.token
+    console.log(story)
+    return (dispatch) => {
+        dispatch({type:'PRE_LIKE'})
+        fetch(`http://localhost:3000/stories/${story.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                story: {
+                    likes: story.likes + 1
+                }
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            let storyD = data.story
+            dispatch({type:'LIKE_STORY', storyD})
+        })
+    }
+}
+
+export const readStory = (story) => {
+    const token = localStorage.token
+    console.log("started read")
+    console.log(story.id)
+    console.log(story.reads)
+    console.log(story.reads + 1)
+    return (dispatch) => {
+        dispatch({type:'PRE_READ'})
+        fetch(`http://localhost:3000/stories/${story.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                story: {
+                    reads: story.reads + 1
+                }
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            let storyD = data.story 
+            console.log(storyD)   
+            dispatch({type:'READ_STORY', storyD})       
+        })
+    }
 }
 
 export const deleteStory = (story) => {
+    const token = localStorage.token
     fetch(`http://localhost:3000/stories/${story.id}`, {
         method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
     })
     .then(res => res.json())
     .then(data => console.log(data))

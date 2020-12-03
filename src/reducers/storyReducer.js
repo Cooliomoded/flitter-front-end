@@ -25,14 +25,42 @@ export default function storyReducer(state = initialState, action) {
                 stories: [...state.stories, action.newStory]
             }
 
-        case "UPVOTE_STORY":
-            idx = state.findIndex(story => story.id === action.storyId)
-            story = state[idx]
-            return [
-                ...state.slice(0, idx),
-                {...story, votes: story.votes+1},
-                ...state.slice(idx + 1)
-            ]
+        case "PRE_LIKE":
+            return {
+                ...state,
+                requesting: true
+            }
+
+        case "LIKE_STORY":
+            idx = state.stories.findIndex(story => story.id === action.storyD.id)
+            story = state.stories[idx]
+            console.log(action.storyD)
+            console.log('hit like')
+            return {
+                ...state,
+                stories: [...state.stories.slice(0, idx),
+                {...story, likes: story.likes+1},
+                ...state.stories.slice(idx + 1)],
+                requesting: false
+            }
+        
+        case "PRE_READ":
+            return {
+                ...state,
+                requesting: true
+            }
+        
+        case "READ_STORY":
+            idx = state.stories.findIndex(story => story.id === action.storyD.id)
+            story = state.stories[idx]
+            console.log(action.storyD)
+            return {
+                ...state,
+                stories: [...state.stories.slice(0, idx),
+                {...story, reads: story.reads+1},
+                ...state.stories.slice(idx + 1)],
+                requesting: false
+            }
 
         default:
             return state

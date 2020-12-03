@@ -50,6 +50,7 @@ class EditStory extends Component {
             ...this.state,
             text: content
         })
+        console.log(this.state)
     }
 
     addGenre = (event) => {
@@ -91,11 +92,20 @@ class EditStory extends Component {
     }
 
     editStory = () => {
-        let story = this.state
+        let story = {
+                ...this.state
+        }
         let removedIds = [...story.genreIds.filter(id => !story.updatedGenreIds.includes(id))]
         console.log(`If no Id's are left on this list, don't need to remove any Id's ${removedIds}`)
         let addedIds = [...story.updatedGenreIds.filter(id => !story.genreIds.includes(id))]
         console.log(`What I think are the Ids that need to be added ${addedIds}`)
+        story = {
+            ...story,
+            removedIds: removedIds,
+            addedIds: addedIds
+        }
+        console.log(story)
+        this.props.editStory(story)
     }
 
     render(){

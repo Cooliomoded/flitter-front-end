@@ -22,7 +22,26 @@ export default function storyReducer(state = initialState, action) {
         case "ADD_STORY":
             return {
                 ...state,
-                stories: [...state.stories, action.newStory]
+                stories: [
+                    ...state.stories,
+                    action.newStory
+                ]
+            }
+
+        case "PRE_UPDATE_STORY":
+            return {
+                ...state,
+                requesting: true
+            }
+
+        case "UPDATE_STORY":
+            idx = state.stories.findIndex(story => story.id === action.storyD.id)
+            return {
+                ...state,
+                stories: [...state.stories.slice(0, idx),
+                {...action.storyD},
+                ...state.stories.slice(idx + 1)],
+                requesting: false
             }
 
         case "PRE_LIKE":
@@ -61,7 +80,25 @@ export default function storyReducer(state = initialState, action) {
                 ...state.stories.slice(idx + 1)],
                 requesting: false
             }
-
+        case "PRE_EDIT":
+            console.log('made it to pre edit')
+            return {
+                ...state,
+                requesting: false
+            }
+        
+        case "EDIT_STORY":
+            idx = state.stories.findIndex(story => story.id === action.storyD.id)
+            console.log(action.storyD)
+            console.log('made it to edit')
+            return {
+                ...state,
+                stories: [...state.stories.slice(0, idx),
+                {...action.storyD},
+                ...state.stories.slice(idx + 1)],
+                requesting: false
+            }
+            
         default:
             return state
     }

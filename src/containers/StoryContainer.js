@@ -16,7 +16,7 @@ class StoryContainer extends Component {
 
     async componentDidMount(){
         await this.props.storiesFromState
-        await this.setState({
+        this.setState({
             toggleReadStory: false,
             filteredStories: this.props.storiesFromState.stories
         })

@@ -62,10 +62,13 @@ export const createStoryGenres = (story, genre) => {
 }
 
 export const editStory = (story) => {
-    fetch(`http://localhost:3000/stories/${story.id}`, {
+    const token = localStorage.token
+    fetch(`http://localhost:3000/stories/${story.storyId}`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
         },
         body: {
             title: story.title,

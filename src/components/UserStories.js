@@ -1,38 +1,60 @@
 import React, { Component } from 'react'
 import NavBar from './UserNavBar'
 import StoryCard from './StoryCard'
+import EditStory from './EditStory'
 
 import { connect } from 'react-redux'
+import { Route, Link } from 'react-router-dom'
 
 class UserStories extends Component {
     
     state = {
-        userStories: []
+        userStories: [],
+        toggleEditStory: false
     }
 
-    componentDidMount(){
-        let userStoryArray = this.props.user.currentUser.stories.map(story => this.props.stories.stories.find(userStory => userStory.id === story.id))
+    async componentDidMount(){
+        await this.props.user
+        let userStoryArray = this.props.user.currentUser.stories.map(
+            story => this.props.stories.stories.find(
+                userStory => userStory.id === story.id))
         console.log(userStoryArray)
         this.setState({
             userStories: [...userStoryArray]
         })
     }
+
+    handleOnClick = () => {
+        this.setState({
+            toggleEditStory: !this.state.toggleReadStory
+        })
+    }
+
+    handleCardDismount = () => {
+        this.setState({
+            toggleEditStory: false
+        })
+    }
+
     render() {
-        console.log(this.state)
+        const { userStories } = this.state
+        const storyIds = userStories.map(story => story.id)
+        const renderStories = storyIds.map(storyId =>
+        <div className="story-link" key={'edit-story-link' + storyId}>
+            <Link onClick={this.handleOnClick} to={`/my-stories/${storyId - 1}`}><StoryCard story={this.props.stories.stories[storyId - 1]}></StoryCard></Link>
+        </div>
+        )
     // console.log(this.props.stories.stories)
     // console.log(this.props.user.currentUser.stories)
-    return(
-        <div>
-            <NavBar></NavBar>
-            {this.state.userStories.map(story => {
-                return(
-                    <StoryCard key={story.id} story={story}></StoryCard>
-                )
-            })}
+        return(
+            <div>
+                <NavBar handleMyProfile={this.handleCardDismount}></NavBar>
+                {!this.state.toggleEditStory ? renderStories : null}
+                <Route path={`${this.props.match.url}/:storyId`} render={routerProps =><EditStory {...routerProps} handleCardDismount={this.handleCardDismount} stories={this.props.stories.stories}/>}/>
+            </div>
             
-        </div>
-    )
-    }
+        )
+        }
 }
 
 const mapStateToProps = (state) => {

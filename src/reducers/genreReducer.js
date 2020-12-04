@@ -1,5 +1,6 @@
 const initialState = {
-    genres: []
+    genres: [],
+    requesting: false
 }
 
 export default function genreReducer(state = initialState, action) {

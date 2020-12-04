@@ -12,13 +12,14 @@ import Support from './components/Support'
 import Profile from './components/Profile'
 import UserStories from './components/UserStories'
 import StoryWrite from './components/StoryWrite'
+import Comments from './components/Comments'
 
 import { fetchStories } from './actions/storyActions'
 import { getProfileFetch } from './actions/loginActions'
 import './App.css';
 
 class App extends Component {
-  
+
   componentDidMount(){
     this.props.getProfileFetch()
     this.props.fetchStories()
@@ -36,6 +37,7 @@ class App extends Component {
      <Route path="/support" component={Support} />
      <Route path="/my-stories" render={routerProps => <UserStories {...routerProps} user={this.props.user} />} />
      <Route path="/write" component={StoryWrite} />
+     <Route path="/my-comments" component={Comments} />
      </Switch>
     </div>
   )};

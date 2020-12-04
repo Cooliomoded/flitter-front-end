@@ -6,9 +6,14 @@ import { Link } from 'react-router-dom'
 import Comment from './Comment'
 import { connect } from 'react-redux'
 import { likeStory, readStory } from '../actions/storyActions'
-
+import { postComment } from '../actions/commentActions'
 
 class StoryShow extends Component {
+
+    state = {
+        writeComment: false,
+        text: ''
+    }
 
     async componentDidMount(){
         await this.props.match
@@ -29,6 +34,35 @@ class StoryShow extends Component {
         this.props.readStory(this.props.stories.stories[this.props.match.params.storyId])
     }
 
+    leavingAComment  = () => {
+        this.setState({
+            ...this.state,
+            writeComment: true
+        })
+    }
+
+    handleTextOnChange = (content) => {
+        this.setState({ 
+            ...this.state,
+            text: content
+        })
+    }
+
+    submitComment = () => {
+        let comment = {
+            story_id: this.props.stories.stories[this.props.match.params.storyId].id,
+            user_id: jwtDecode(localStorage.token).user_id,
+            text: this.state.text,
+        }
+        console.log(comment)
+        this.props.postComment(comment)
+        this.setState({
+            ...this.state,
+            writeComment: false,
+            text: ''
+        })
+    }
+
     render(){
         const { match, stories, handleCardDismount } = this.props
         const modules = {
@@ -36,6 +70,22 @@ class StoryShow extends Component {
               false
             ],
           }
+        const writingModules = {
+            toolbar: [
+              [{ 'header': [1, 2, false] }],
+              ['bold', 'italic', 'underline','strike', 'blockquote'],
+              [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+              ['link', 'image'],
+              ['clean']
+            ],
+          }
+    
+        const writingFormats = [
+            'header',
+            'bold', 'italic', 'underline', 'strike', 'blockquote',
+            'list', 'bullet', 'indent',
+            'link', 'image'
+          ]
     return(
         <div className="story-page">
             <div className="story-page-title-info">
@@ -58,6 +108,24 @@ class StoryShow extends Component {
                 <button className='like-button' onClick={this.handleLike}>Like Story</button>
                 <h4>Likes: {stories.stories[match.params.storyId].likes}</h4>
             </div>
+                <div className='quill-container'>
+                    {!this.state.writeComment ?
+                    <button onClick={this.leavingAComment}>Leave a Comment</button>
+                    : <p>Keep Comments Concise and Actionable</p> }
+                    {this.state.writeComment ?
+                    <div className="quill-surface">
+                        <ReactQuill
+                        value={this.state.text}
+                        onChange={this.handleTextOnChange}
+                        theme='snow'
+                        modules={writingModules}
+                        formates={writingFormats}>
+                        </ReactQuill>
+                        <button onClick={this.submitComment}>Submit Comment</button>
+                    </div>
+                    : null
+                    }
+                </div>
             <div className="story-page-comments">
                 <h4>Comments:</h4>
                 {stories.stories[match.params.storyId].comments.map(comment => comment.user_id === jwtDecode(localStorage.token).user_id
@@ -72,4 +140,4 @@ class StoryShow extends Component {
     }
 }
 
-export default connect(null, { readStory, likeStory }) (StoryShow)
+export default connect(null, { readStory, likeStory, postComment }) (StoryShow)

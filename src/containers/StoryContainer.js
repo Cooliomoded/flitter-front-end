@@ -4,6 +4,7 @@ import { Link, Route } from 'react-router-dom'
 import StoryCard from '../components/StoryCard'
 import GenreNavBar from '../components/GenreNavBar'
 import StoryShow from '../components/StoryShow'
+import UserNavBar from '../components/UserNavBar'
 
 
 class StoryContainer extends Component {
@@ -11,7 +12,8 @@ class StoryContainer extends Component {
     state = {
         toggleReadStory: false,
         genreFilter: [],
-        filteredStories: []
+        filteredStories: [],
+        showGenreFilter: true
     }
 
     async componentDidMount(){
@@ -25,20 +27,21 @@ class StoryContainer extends Component {
 
     handleOnClick = () => {
         this.setState({
-            toggleReadStory: !this.state.toggleReadStory
+            ...this.state,
+            toggleReadStory: !this.state.toggleReadStory,
+            showGenreFilter: !this.state.showGenreFilter
         })
     }
 
     handleCardDismount = () => {
         this.setState({
-            toggleReadStory: false
+            ...this.state,
+            toggleReadStory: false,
+            showGenreFilter: true
         })
     }
 
     handleAddGenreFilter = (event) => {
-        console.log(event.target.value)
-        console.log(this.state.filteredStories.length > 0 ? this.state.filteredStories[0].genres[0] : null)
-        console.log(this.state.filteredStories.filter(story => story.genres.some(genre => genre.genre === event.target.value)))
         this.setState({
             ...this.state,
             genreFilter: [...this.state.genreFilter, event.target.value],
@@ -48,18 +51,22 @@ class StoryContainer extends Component {
     }
 
     handleRemoveGenreFilter = (event) => {
-        console.log(event.target.value)
         let newFilter = [...this.state.genreFilter.filter(genre => genre !== event.target.value)]
         let allStories = [...this.props.storiesFromState.stories]
-        console.log(newFilter)
         newFilter.forEach(filter => allStories = allStories.filter(story => story.genres.some(genre => genre.genre === filter)))
-        console.log(allStories)
         this.setState({
             ...this.state,
             filteredStories: [...allStories],
             genreFilter: [...newFilter]
         })
-        console.log(this.state)
+    }
+
+    returnToIndex = () => {
+        this.setState({
+            ...this.state,
+            toggleReadStory: false,
+            showGenreFilter: true
+        })
     }
 
     render(){
@@ -73,8 +80,13 @@ class StoryContainer extends Component {
 
         return(
             <div>
-                <div className='navbar-container'>
-                    <GenreNavBar genreFilter={this.state.genreFilter} handleAddGenreFilter={this.handleAddGenreFilter} handleRemoveGenreFilter={this.handleRemoveGenreFilter}></GenreNavBar>
+                <div className='navbar-container user-navbar'>
+                    <UserNavBar returnToIndex={this.returnToIndex} />
+                </div>
+                <div className='navbar-container genre-navbar'>
+                    {this.state.showGenreFilter 
+                    ? <GenreNavBar genreFilter={this.state.genreFilter} handleAddGenreFilter={this.handleAddGenreFilter} handleRemoveGenreFilter={this.handleRemoveGenreFilter}></GenreNavBar>
+                    : null}
                 </div>
                 <div className='story-container'>
                     {!this.state.toggleReadStory ? renderStories : null}

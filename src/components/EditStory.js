@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 
-import { editStory } from '../actions/storyActions'
+import Comment from './Comment'
+
+import { editStory, createStoryGenres, removeStoryGenres } from '../actions/storyActions'
 
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -25,6 +27,7 @@ class EditStory extends Component {
         await this.props.handleCardDismount
         console.log(this.props.stories[this.props.match.params.storyId])
         console.log(this.props.stories[this.props.match.params.storyId].genres.map(genre => genre.genre))
+        
         this.setState({
             ...this.state,
             title: this.props.stories[this.props.match.params.storyId].title,
@@ -60,7 +63,6 @@ class EditStory extends Component {
             updatedGenreIds: [...this.state.updatedGenreIds, genreId.id],
             updatedGenres: [...this.state.updatedGenres, event.target.value]
         })
-        console.log(this.state)
     }
 
     modules = {
@@ -82,7 +84,6 @@ class EditStory extends Component {
 
     removeGenre = (event) => {
         let genreId = this.props.genres.genres.find(genre => genre.genre === event.target.value)
-        console.log(genreId)
         this.setState({
             ...this.state,
             updatedGenreIds: [...this.state.updatedGenreIds.filter(genre => genre !== genreId.id)],
@@ -96,9 +97,7 @@ class EditStory extends Component {
                 ...this.state
         }
         let removedIds = [...story.genreIds.filter(id => !story.updatedGenreIds.includes(id))]
-        console.log(`If no Id's are left on this list, don't need to remove any Id's ${removedIds}`)
         let addedIds = [...story.updatedGenreIds.filter(id => !story.genreIds.includes(id))]
-        console.log(`What I think are the Ids that need to be added ${addedIds}`)
         story = {
             ...story,
             removedIds: removedIds,
@@ -106,6 +105,15 @@ class EditStory extends Component {
         }
         console.log(story)
         this.props.editStory(story)
+        if (story.addedIds.length > 0) {
+             story.addedIds.map(id =>
+                 createStoryGenres(story.storyId, id)
+             )
+        }
+        if (story.removedIds.length > 0) {
+            story.removedIds.map(id =>
+                removeStoryGenres(story.storyId, id))
+        }
     }
 
     render(){
@@ -131,6 +139,7 @@ class EditStory extends Component {
             <div className="genre-selector">
                 <label htmlFor="genre-selector">Story Genre Selector</label>
                 <select onChange={this.addGenre} name="genre-selector" id="genre-selector">
+                <option>Genres</option>
                 {/* {this.props.genres.genres.map(genre => !this.state.genreFilter.includes(genre.genre) ? <option onChange={this.handleChange} value={genre.genre}>{genre.genre}</option> : null)} */}
                 {this.props.genres.genres.map(genre =>
                     !this.state.updatedGenres.includes(genre.genre) ? <option key={genre.id} value={genre.genre}>{genre.genre}</option> : null)}
@@ -146,9 +155,9 @@ class EditStory extends Component {
                 </div>
 
                 <div>
-                    {this.state.title.length > 6 ?
+                    {this.state.title.length > 4 ?
                     (this.state.text.length > 20 ?
-                    (this.state.genres.length > 0 ?
+                    (this.state.updatedGenres.length > 0 ?
                     <button onClick={this.editStory}>Submit Story</button>
                     : null)
                     : null)
@@ -161,7 +170,7 @@ class EditStory extends Component {
 
                 <div>
                     <h3>Comments</h3>
-                    {this.props.stories[this.props.match.params.storyId].comments.map(comment => <p>{comment.content}</p>)}
+                    {this.props.stories[this.props.match.params.storyId].comments.map(comment => <Comment comment={comment}></Comment>)}
                 </div>
             </div>
         )

@@ -90,7 +90,7 @@ class StoryWrite extends Component {
         <div className='quill-container'>
             <NavBar></NavBar>
             <div className='quill-title'>
-                <input onChange={this.handleTitleOnChange} type='text' name='title' value={this.state.title} placeholder='title'></input>
+                <input onChange={this.handleTitleOnChange} type='text' name='title' value={this.state.title} placeholder='Title your Story'></input>
             </div>
             <div className='quill-surface'>
             <ReactQuill
@@ -99,6 +99,7 @@ class StoryWrite extends Component {
                 theme='snow'
                 modules={this.modules}
                 formats={this.formats}
+                placeholder="Make these words the best they can be."
             >
             </ReactQuill>
             </div>
@@ -106,9 +107,9 @@ class StoryWrite extends Component {
             <div className="genre-selector">
                 <label htmlFor="genre-selector">Story Genre Selector</label>
                 <select onChange={this.addGenre} name="genre-selector" id="genre-selector">
-                {/* {this.props.genres.genres.map(genre => !this.state.genreFilter.includes(genre.genre) ? <option onChange={this.handleChange} value={genre.genre}>{genre.genre}</option> : null)} */}
-                {this.props.genres.genres.map(genre =>
-                    !this.state.genres.includes(genre.genre) ? <option key={genre.id} value={genre.genre}>{genre.genre}</option> : null)}
+                    <option>Select at least one Genre</option>
+                    {this.props.genres.genres.map(genre =>
+                        !this.state.genres.includes(genre.genre) ? <option key={genre.id} value={genre.genre}>{genre.genre}</option> : null)}
                 </select>
             </div>
                 <div className='genre-selections'>

@@ -14,7 +14,8 @@ const Comment = ({ comment }) => {
     return(
         <div>
             <ReactQuill
-                readOnly='true'
+                key={comment.id}
+                readOnly={true}
                 value={comment.content}
                 modules={modules}
             ></ReactQuill>

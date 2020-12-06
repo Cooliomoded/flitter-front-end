@@ -13,8 +13,8 @@ class UserStories extends Component {
         toggleEditStory: false
     }
 
-    async componentDidMount(){
-        await this.props.user
+    componentDidMount(){
+        console.log(this.props.user)
         let userStoryArray = this.props.user.currentUser.stories.map(
             story => this.props.stories.stories.find(
                 userStory => userStory.id === story.id))
@@ -59,7 +59,8 @@ class UserStories extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        stories: state.story
+        stories: state.story,
+        user: state.login
     }
 }
 

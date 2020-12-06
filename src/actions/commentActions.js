@@ -18,6 +18,10 @@ export const postComment = (comment) => {
             })
         })
         .then(res => res.json())
-        .then(data => console.log(data))
+        .then(data => {
+            let commentD = data.comment
+            console.log(commentD)
+            dispatch({type:'POSTED_COMMENT', commentD})
+        })
     }
 }

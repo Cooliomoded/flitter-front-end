@@ -16,13 +16,14 @@ class StoryContainer extends Component {
         showGenreFilter: true
     }
 
-    async componentDidMount(){
-        await this.props.storiesFromState
+    componentDidMount(){
+        if(this.props.stories.stories.length > 0){
         this.setState({
+            ...this.state,
             toggleReadStory: false,
-            filteredStories: this.props.storiesFromState.stories
-        })
-        console.log(this.state)
+            filteredStories: [...this.props.stories.stories]
+        })}
+        console.log(this.props.stories.stories)
     }
 
     handleOnClick = () => {
@@ -52,7 +53,7 @@ class StoryContainer extends Component {
 
     handleRemoveGenreFilter = (event) => {
         let newFilter = [...this.state.genreFilter.filter(genre => genre !== event.target.value)]
-        let allStories = [...this.props.storiesFromState.stories]
+        let allStories = [...this.props.stories.stories]
         newFilter.forEach(filter => allStories = allStories.filter(story => story.genres.some(genre => genre.genre === filter)))
         this.setState({
             ...this.state,
@@ -69,8 +70,17 @@ class StoryContainer extends Component {
         })
     }
 
-    render(){
+    readingStory = () => {
+        if(!this.state.toggleReadStory){
+        this.setState({
+            ...this.state,
+            toggleReadStory: true,
+            showGenreFilter: false
+        })}
+    }
 
+    render(){
+        console.log(this.state)
         const { filteredStories } = this.state
         const renderStories = Object.keys(filteredStories).map(storyId =>
         <div className="story-link" key={'story-link' + storyId}>
@@ -89,17 +99,12 @@ class StoryContainer extends Component {
                     : null}
                 </div>
                 <div className='story-container'>
-                    {!this.state.toggleReadStory ? renderStories : null}
+                    {this.props.match.url === '/index' && !this.state.toggleReadStory && renderStories}
                 </div>
-                <Route path={`${this.props.match.url}/:storyId`} render={routerProps =><StoryShow {...routerProps} handleCardDismount={this.handleCardDismount} stories={this.props.stories}/>}/>
+                <Route exact path={`${this.props.match.url}/:storyId`} render={routerProps =><StoryShow {...routerProps} readingStory={this.readingStory} handleCardDismount={this.handleCardDismount} stories={this.props.stories}/>}/>
             </div>
         )
     }   
 }
 
-const mapStateToProps = (state) => {
-    return {
-        storiesFromState: state.story
-    }
-} 
-export default connect(mapStateToProps)(StoryContainer)
+export default connect()(StoryContainer)

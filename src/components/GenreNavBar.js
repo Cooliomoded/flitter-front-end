@@ -4,10 +4,6 @@ import { connect } from 'react-redux'
 
 class GenreNavBar extends Component {
 
-    async componentDidMount(){
-        await this.props.genres
-    }
-
     render(){
         return(
             <div className="genre-filter">
@@ -19,15 +15,15 @@ class GenreNavBar extends Component {
                 <div className="genre-selector">
                     <label htmlFor="genre-selector">Story Genre Selector</label>
                     <select onChange={this.props.handleAddGenreFilter} name="genre-selector" id="genre-selector">
-                    {/* {this.props.genres.genres.map(genre => !this.state.genreFilter.includes(genre.genre) ? <option onChange={this.handleChange} value={genre.genre}>{genre.genre}</option> : null)} */}
-                    {this.props.genres.genres.map(genre =>
-                        !this.props.genreFilter.includes(genre.genre) ? <option key={"option" + genre.id} value={genre.genre}>{genre.genre}</option> : null)}
+                        <option>Genres</option>
+                        {this.props.genres.genres.map(genre =>
+                            !this.props.genreFilter.includes(genre.genre) ? <option key={"option" + genre.id} value={genre.genre}>{genre.genre}</option> : null)}
                     </select>
                 </div>
                 <div className='genre-selections'>
-                    <p>Story Genres:</p>
+                    <p>Sorting by these Genres:</p>
                     {this.props.genreFilter.map(genre =>
-                         <button onClick={this.props.handleRemoveGenreFilter} value={genre}>{genre}</button>
+                         <button key={"button-for-genre" + genre}onClick={this.props.handleRemoveGenreFilter} value={genre}>{genre}</button>
                     )}
                     {this.props.genreFilter.length > 0 ? <p>Click to remove genre from list of genres</p> : null }
                 </div>

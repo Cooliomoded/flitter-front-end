@@ -15,10 +15,8 @@ class StoryShow extends Component {
         text: ''
     }
 
-    async componentDidMount(){
-        await this.props.match
-        await this.props.stories
-        await this.props.handleCardDismount
+    componentDidUpdate(){
+        this.props.readingStory()
     }
 
     handleLike = () => {
@@ -64,7 +62,10 @@ class StoryShow extends Component {
     }
 
     render(){
+        console.log(this.props)
         const { match, stories, handleCardDismount } = this.props
+        console.log(stories.stories)
+        console.log(match.params.storyId)
         const modules = {
             toolbar: [
               false
@@ -88,30 +89,38 @@ class StoryShow extends Component {
           ]
     return(
         <div className="story-page">
+            { stories.stories.length > 0 ?
             <div className="story-page-title-info">
                 <h3>Title: { stories.stories[match.params.storyId].title }</h3>
                 <h4>By: { stories.stories[match.params.storyId].user.penname }</h4>
                 <h4>Genres:</h4>
                 { stories.stories[match.params.storyId].genres.map(genre => <p key={genre.id}>{genre.genre}</p>) }
             </div>
+            : null
+            }
+            { stories.stories.length > 0 ?
             <div className="story-page-content">
                 <ReactQuill
-                    readOnly='true'
+                    readOnly={true}
                     value={ stories.stories[match.params.storyId].content}
                     modules={modules}
                 >
                 </ReactQuill>
             </div>
+            : null }  
+            {stories.length > 0 ?
             <div>
                 <button className='read-button' onClick={this.handleRead}>Done Reading</button>
                 <h4>Reads: { stories.stories[match.params.storyId].reads}</h4>
                 <button className='like-button' onClick={this.handleLike}>Like Story</button>
                 <h4>Likes: {stories.stories[match.params.storyId].likes}</h4>
             </div>
+            : null }
+                {stories.stories.length > 0 ?
                 <div className='quill-container'>
                     {!this.state.writeComment ?
                     <button onClick={this.leavingAComment}>Leave a Comment</button>
-                    : <p>Keep Comments Concise and Actionable</p> }
+                    : null }
                     {this.state.writeComment ?
                     <div className="quill-surface">
                         <ReactQuill
@@ -119,22 +128,28 @@ class StoryShow extends Component {
                         onChange={this.handleTextOnChange}
                         theme='snow'
                         modules={writingModules}
-                        formates={writingFormats}>
+                        formates={writingFormats}
+                        placeholder="Keep your Comment concise and actionable."
+                        >
                         </ReactQuill>
                         <button onClick={this.submitComment}>Submit Comment</button>
                     </div>
                     : null
                     }
                 </div>
+                : null }
+            {stories.stories.length > 0 ?
             <div className="story-page-comments">
                 <h4>Comments:</h4>
-                {stories.stories[match.params.storyId].comments.map(comment => comment.user_id === jwtDecode(localStorage.token).user_id
-                ? <Comment key={comment.id} comment={comment}></Comment>
-                : <p key={comment.id}>{comment.content}</p>)}
+                {stories.stories[match.params.storyId].comments.map(comment => 
+                    <Comment key={comment.id} comment={comment}></Comment>)}
             </div>
+            : null }
+            {stories.stories.length > 0 ?
             <div>
                 <Link to='/index' onClick={handleCardDismount}> Return to Index </Link>
             </div>
+            : null }
         </div>
     )
     }

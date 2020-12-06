@@ -11,13 +11,16 @@ export const fetchStories = () => {
 }
 
 export const fetchStory = (story) => {
+    console.log('made it to fetch story')
     return (dispatch) => {
-        dispatch({type:"PRE_STORY_UPDATE"})
+        console.log('made it into return')
+        dispatch({type:"PRE_UPDATE_STORY"})
         fetch(`http://localhost:3000/stories/${story.id}`)
         .then(res => res.json())
         .then(data => {
             let storyD = data.story
-            dispatch({type: 'STORY_UPDATE', storyD})
+            console.log(storyD)
+            dispatch({type: 'UPDATE_STORY', storyD})
         })
     }
 }
@@ -25,6 +28,7 @@ export const fetchStory = (story) => {
 export const createStory = (story) => {
     return(dispatch) => {
         const token = localStorage.token
+        dispatch({type:"ADD_STORY"})
         if (token) {
             fetch('http://localhost:3000/stories', {
                 method: "POST",
@@ -46,7 +50,6 @@ export const createStory = (story) => {
                 story.genreIds.forEach(id =>
                     createStoryGenres(newStory.id, id)
                 )
-                dispatch({type: "ADD_STORY", newStory})
                 fetchStory(newStory)
             })
         }
@@ -55,39 +58,57 @@ export const createStory = (story) => {
 
 export const createStoryGenres = (storyId, genreId) => {
     const token = localStorage.token
-    if (token) {
-        fetch('http://localhost:3000/story_genres', {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({
-            genre_id: genreId,
-            story_id: storyId
-        })
-        })
-        .then(res => res.json())
-        .then(data => console.log(data))
+    return (dispatch) => {
+        if (token) {
+            dispatch({type:"PRE_ADD_GENRE"})
+            console.log('made it to createStoryGenres')
+            fetch('http://localhost:3000/story_genres', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                genre_id: genreId,
+                story_id: storyId
+            })
+            })
+            .then(res => res.json())
+            .then(data => {
+                let genre = { genre: data.genre }
+                genre.storyId = storyId
+                console.log(genre)
+                (dispatch({type: "POST_ADD_GENRE", genre}))
+            })
+        }
     }
 }
 
-export const removeStoryGenres = (genreId) => {
+export const removeStoryGenres = (storyId, genreId) => {
     const token = localStorage.token
     if (token) {
+        console.log('made it to remove genre')
         return (dispatch) => {
             dispatch({type: 'PRE_REMOVE_GENRE'})
-            fetch(`http://localhost:3000/story_genres/${genreId}`, {
+            fetch(`http://localhost:3000/remove_genre/`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
                     'Authorization': `Bearer ${token}`
-                }
+                },
+                body: JSON.stringify({
+                    story_id: storyId,
+                    genre_id: genreId
+                })
             })
             .then(res => res.json())
-            .then(data => console.log(data))
+            .then(data => {
+                let story = { storyId: storyId }
+                story.genreId = genreId
+                dispatch({type: 'POST_REMOVE_GENRE', story})
+            })
         }
     }
 }
@@ -95,6 +116,7 @@ export const removeStoryGenres = (genreId) => {
 export const editStory = (story) => {
     const token = localStorage.token
     console.log('edit story action')
+    console.log(story)
     return (dispatch) => {
         dispatch({type:'PRE_EDIT'})
         fetch(`http://localhost:3000/stories/${story.storyId}`, {
@@ -112,17 +134,7 @@ export const editStory = (story) => {
         .then(res => res.json())
         .then(data => {
             let storyD = data.story
-            console.log(data)
-            if (story.addedIds.length > 0) {
-                story.addedIds.forEach(id =>
-                    createStoryGenres(storyD.id, id)
-                )
-            }
-            if (story.removedIds.length > 0) {
-                story.removedIds.forEach(id =>
-                    removeStoryGenres(id))
-            }
-            fetchStory(storyD)
+            dispatch({type: "EDIT_STORY", storyD})
         })
     }
 }

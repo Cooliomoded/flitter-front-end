@@ -47,6 +47,7 @@ class Login extends Component {
         })
     }
     render(){
+        // this.props.user ? <Redirect to='/index'/>
     return(
         <div className="not-login">
 

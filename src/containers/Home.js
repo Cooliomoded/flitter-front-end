@@ -16,7 +16,7 @@ class Home extends Component {
         console.log(this.props)
         return(
             <div className='home-page'>
-                    <div className='story-container'>
+                    <div>
                         <StoryContainer {...this.props}></StoryContainer>
                         {/* <Route path={`${this.props.match.url}/:storyId`} render={routerProps =><StoryShow {...routerProps} stories={this.props.stories}/>}/> */}
                     </div>

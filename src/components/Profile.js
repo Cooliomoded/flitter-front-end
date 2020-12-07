@@ -47,7 +47,7 @@ class Profile extends Component {
         return(
             <div>
                 <UserNavBar></UserNavBar>
-                <div className="profile">
+                <div className="under-nav profile">
                     { !this.state.editToggle ? 
                     <div>
                         <h3>{this.state.username}</h3>

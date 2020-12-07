@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 
-import { createStory } from '../actions/storyActions'
+import { createStory, createStoryGenres } from '../actions/storyActions'
 import NavBar from './UserNavBar'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'

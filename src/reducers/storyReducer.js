@@ -107,8 +107,6 @@ export default function storyReducer(state = initialState, action) {
             }
         
         case "PRE_ADD_GENRE":
-            idx = state.stories.findIndex(story => story.id === action.story_id)
-            story = state.stories[idx]
             console.log('made it to pre add genre')
             return {
                 ...state,
@@ -117,10 +115,13 @@ export default function storyReducer(state = initialState, action) {
 
         case "POST_ADD_GENRE":
             console.log('made it to post add genre')
-
+            idx = state.stories.findIndex(story => story.id === action.genre.storyId)
+            story = state.stories[idx]
             return {
                 ...state,
-                requesting: false
+                stories: [...state.stories.slice(0, idx),
+                    {...story, genres: [...story.genres, action.genre]},
+                    ...state.stories.slice(idx + 1)],
             }
 
         case "PRE_REMOVE_GENRE":
@@ -158,6 +159,7 @@ export default function storyReducer(state = initialState, action) {
             idx = state.stories.findIndex(story => story.id === action.commentD.story_id)
             story = state.stories[idx]
             return {
+                ...state,
                 stories: [...state.stories.slice(0, idx),
                     {...story, comments: [...story.comments, action.commentD]},
                     ...state.stories.slice(idx + 1)],

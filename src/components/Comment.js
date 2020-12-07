@@ -12,13 +12,15 @@ const Comment = ({ comment }) => {
     }
 
     return(
-        <div>
-            <ReactQuill
-                key={comment.id}
-                readOnly={true}
-                value={comment.content}
-                modules={modules}
-            ></ReactQuill>
+        <div className='comment'>
+            <div>
+                <ReactQuill
+                    key={comment.id}
+                    readOnly={true}
+                    value={comment.content}
+                    modules={modules}
+                ></ReactQuill>
+            </div>
         </div>
     )
 }

@@ -21,10 +21,8 @@ class EditStory extends Component {
         storyId: ''
     }
 
-    async componentDidMount() {
-        await this.props.match
-        await this.props.stories
-        await this.props.handleCardDismount
+    componentDidMount() {
+        console.log(this.props)
         console.log(this.props.stories[this.props.match.params.storyId])
         console.log(this.props.stories[this.props.match.params.storyId].genres.map(genre => genre.genre))
         
@@ -117,6 +115,7 @@ class EditStory extends Component {
     }
 
     render(){
+        console.log(this.props)
         const { handleCardDismount } = this.props
         return(
 
@@ -142,7 +141,8 @@ class EditStory extends Component {
                 <option>Genres</option>
                 {/* {this.props.genres.genres.map(genre => !this.state.genreFilter.includes(genre.genre) ? <option onChange={this.handleChange} value={genre.genre}>{genre.genre}</option> : null)} */}
                 {this.props.genres.genres.map(genre =>
-                    !this.state.updatedGenres.includes(genre.genre) ? <option key={genre.id} value={genre.genre}>{genre.genre}</option> : null)}
+                    !this.state.updatedGenres.includes(genre.genre) ? <option key={genre.id} value={genre.genre}>{genre.genre}</option>
+                    : null)}
                 </select>
             </div>
 

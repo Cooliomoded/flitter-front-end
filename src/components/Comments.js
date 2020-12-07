@@ -9,7 +9,7 @@ class Comments extends Component {
 
     render(){
         return(
-            <div>
+            <div className="under-nav">
                 <div>
                     <UserNavBar></UserNavBar>
                 </div>

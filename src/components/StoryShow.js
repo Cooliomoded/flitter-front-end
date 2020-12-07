@@ -108,7 +108,7 @@ class StoryShow extends Component {
                 </ReactQuill>
             </div>
             : null }  
-            {stories.length > 0 ?
+            {stories.stories.length > 0 ?
             <div>
                 <button className='read-button' onClick={this.handleRead}>Done Reading</button>
                 <h4>Reads: { stories.stories[match.params.storyId].reads}</h4>

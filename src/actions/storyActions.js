@@ -46,8 +46,9 @@ export const createStory = (story) => {
             })
             .then(res => res.json())
             .then(data => {
+                console.log(story.genreIds)
                 let newStory = data.story
-                story.genreIds.forEach(id =>
+                story.genreIds.map(id =>
                     createStoryGenres(newStory.id, id)
                 )
                 fetchStory(newStory)
@@ -58,10 +59,10 @@ export const createStory = (story) => {
 
 export const createStoryGenres = (storyId, genreId) => {
     const token = localStorage.token
+    console.log('made it to create Story Genre')
     return (dispatch) => {
         if (token) {
             dispatch({type:"PRE_ADD_GENRE"})
-            console.log('made it to createStoryGenres')
             fetch('http://localhost:3000/story_genres', {
             method: "POST",
             headers: {
@@ -105,6 +106,7 @@ export const removeStoryGenres = (storyId, genreId) => {
             })
             .then(res => res.json())
             .then(data => {
+                console.log('made it back from remove genre')
                 let story = { storyId: storyId }
                 story.genreId = genreId
                 dispatch({type: 'POST_REMOVE_GENRE', story})

@@ -13,8 +13,10 @@ class UserStories extends Component {
         toggleEditStory: false
     }
 
-    componentDidMount(){
+    async componentDidMount(){
+        await mapStateToProps
         console.log(this.props.user)
+        if (this.props.user.currentUser.stories){
         let userStoryArray = this.props.user.currentUser.stories.map(
             story => this.props.stories.stories.find(
                 userStory => userStory.id === story.id))
@@ -22,6 +24,7 @@ class UserStories extends Component {
         this.setState({
             userStories: [...userStoryArray]
         })
+        }
     }
 
     handleOnClick = () => {
@@ -40,7 +43,7 @@ class UserStories extends Component {
         const { userStories } = this.state
         const storyIds = userStories.map(story => story.id)
         const renderStories = storyIds.map(storyId =>
-        <div className="story-link" key={'edit-story-link' + storyId}>
+        <div className="under-nav story-link" key={'edit-story-link' + storyId}>
             <Link onClick={this.handleOnClick} to={`/my-stories/${storyId - 1}`}><StoryCard story={this.props.stories.stories[storyId - 1]}></StoryCard></Link>
         </div>
         )

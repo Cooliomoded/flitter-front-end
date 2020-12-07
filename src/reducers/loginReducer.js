@@ -18,7 +18,7 @@ export default function loginReducer(state = initialState, action) {
             return {
                 ...state,
                 currentUser: {...state.currentUser,
-                stories: [...state.currentUser.stories, action.newStory]
+                stories: [...state.currentUser.stories, action.storyD]
                 },
                 requesting: false
             }

@@ -99,6 +99,16 @@ class EditStory extends Component {
         }
         console.log(story)
         this.props.editStory(story)
+        this.setState({
+            title: '',
+            text: '',
+            genres: [],
+            genreIds: [],
+            updatedGenres: [],
+            updatedGenreIds: [],
+            storyId: ''
+        })
+        this.props.handleCardDismount()
     }
 
     render(){
@@ -143,7 +153,7 @@ class EditStory extends Component {
                     {this.state.title.length > 4 ?
                     (this.state.text.length > 20 ?
                     (this.state.updatedGenres.length > 0 ?
-                    <button onClick={this.editStory}>Submit Story</button>
+                    <Link to='/my-stories' ><button onClick={this.editStory}>Submit Story</button></Link>
                     : null)
                     : null)
                     : null}

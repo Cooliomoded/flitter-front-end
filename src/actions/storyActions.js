@@ -45,13 +45,14 @@ export const createStory = (story) => {
             .then(res => res.json())
             .then(data => {
                 console.log(story.genreIds)
-                let newStory = data.story
-                story.genreIds.forEach(id =>
-                    createStoryGenres(newStory.id, id)
-                )
+                let storyD = data.story
+                dispatch({type: 'ADD_TO_USER_STORIES', storyD})
+                dispatch({type: 'UPDATE_STORY', storyD})
                 console.log('doesnt end there')
-                console.log(newStory)
-                dispatch({type: 'ADD_TO_USER_STORIES', newStory})
+                story.genreIds.forEach(id =>
+                    dispatch(createStoryGenres(storyD.id, id))
+                )
+                console.log('end of fetches')
             })
         }
     }
@@ -61,7 +62,7 @@ export const createStoryGenres = (storyId, genreId) => {
     const token = localStorage.token
     console.log(genreId, storyId)
     return (dispatch) => {
-        dispatch({type:'ADD_STORY'})
+        dispatch({type:'PRE_ADD_GENRE'})
         if (token) {
             fetch('http://localhost:3000/story_genres', {
             method: "POST",
@@ -79,10 +80,9 @@ export const createStoryGenres = (storyId, genreId) => {
             })
             .then(res => res.json())
             .then(data => {
-                console.log(data)
+                console.log(data.genre)
                 let genre = data.genre
-                dispatch({type: 'UPDATE_USER_STORY_GENRES', genre})
-                dispatch({type: 'ADDED_STORY'})
+                dispatch({type: 'POST_ADD_GENRE', genre})
             })
         }
     }
@@ -90,6 +90,8 @@ export const createStoryGenres = (storyId, genreId) => {
 
 export const removeStoryGenres = (storyId, genreId) => {
     const token = localStorage.token
+    return (dispatch) => {
+    dispatch({type: 'PRE_REMOVE_GENRE'})
     if (token) {
         console.log('made it to remove genre')
         fetch(`http://localhost:3000/remove_genre/`, {
@@ -105,12 +107,22 @@ export const removeStoryGenres = (storyId, genreId) => {
                     genre_id: genreId
                 }
             })
-        }).then(res => res.json()).then(data => console.log(data.message))
+        })
+        .then(res => res.json())
+        .then(data => {
+            let genreRemoval = {
+                storyId: storyId,
+                genreId: genreId
+            }
+            dispatch({type:'POST_REMOVE_GENRE', genreRemoval})
+        })
+    }
     }
 }
 
 export const editStory = (story) => {
     const token = localStorage.token
+    console.log(story)
     return (dispatch) => {
         fetch(`http://localhost:3000/stories/${story.storyId}`, {
             method: 'PATCH',
@@ -126,19 +138,23 @@ export const editStory = (story) => {
         })
         .then(res => res.json())
         .then(data => {
-            debugger
             let storyD = data.story
-            if(story.addedIds.length > 0) {
-            console.log(story.addedIds)
-            story.genreIds.forEach(id =>
-                dispatch(createStoryGenres(story.storyId, id))
-            )}
+            // story.addedIds.length > 0 ? 
+            //     story.addedIds.forEach(id => dispatch(createStoryGenres(story.storyId, id))
+            //     : null
+            // story.removedIds.length > 0 ?
+            //     story.removedIds.forEach(id => dispatch(removeStoryGenres(story.storyId, id)))
+            //     : null
             if(story.removedIds.length > 0) {
-                console.log(story.removedIds)
-                story.removedIds.forEach(id => 
-                dispatch(removeStoryGenres(story.storyId, id)))
+                story.removedIds.forEach(id => dispatch(removeStoryGenres(storyD.id, id)))
             }
+            if(story.addedIds.length > 0) {
+                story.addedIds.forEach(id => dispatch(createStoryGenres(storyD.id, id)))
+            }
+            console.log(story.addedIds)
             console.log('made it past genres')
+            // dispatch(createStoryGenres(storyD.id, story.addedIds[0]))
+            // dispatch(removeStoryGenres(storyD.id, story.removedIds[0]))
             dispatch(fetchEditedStory(storyD))
         })
     }

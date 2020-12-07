@@ -106,13 +106,20 @@ export default function storyReducer(state = initialState, action) {
             }
 
         case "POST_ADD_GENRE":
-            idx = state.stories.findIndex(story => story.id === action.genre.storyId)
+            if(action.genre) {
+            idx = state.stories.findIndex(story => story.id === action.genre.story.id)
             story = state.stories[idx]
+            
+            console.log(story)
             return {
                 ...state,
                 stories: [...state.stories.slice(0, idx),
                     {...story, genres: [...story.genres, action.genre.genre]},
                     ...state.stories.slice(idx + 1)],
+            }} else {
+                return {
+                    ...state
+                }
             }
 
         case "PRE_REMOVE_GENRE":
@@ -122,9 +129,10 @@ export default function storyReducer(state = initialState, action) {
             }
 
         case "POST_REMOVE_GENRE":
-            idx = state.stories.findIndex(story => story.id === action.storyId)
+            if(action.genreRemoval){
+            idx = state.stories.findIndex(story => story.id === action.genreRemoval.storyId)
             story = state.stories[idx]
-            genreIdx = story.genres.findIndex(genre => genre.id === action.genreId)
+            genreIdx = story.genres.findIndex(genre => genre.id === action.genreRemoval.genreId)
             console.log(action)
             console.log('made it to post remove genre')
             return {
@@ -135,7 +143,11 @@ export default function storyReducer(state = initialState, action) {
                     ...story.genres.slice(genreIdx+1)]},
                     ...state.stories.slice(idx + 1)],
                 requesting: false
-            }
+                }} else {
+                    return {
+                        ...state
+                    }
+        }
         
         case "POSTING_COMMENT":
             console.log('made it to posting comment')

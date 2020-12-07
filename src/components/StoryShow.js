@@ -52,7 +52,6 @@ class StoryShow extends Component {
             user_id: jwtDecode(localStorage.token).user_id,
             text: this.state.text,
         }
-        console.log(comment)
         this.props.postComment(comment)
         this.setState({
             ...this.state,
@@ -62,10 +61,7 @@ class StoryShow extends Component {
     }
 
     render(){
-        console.log(this.props)
         const { match, stories, handleCardDismount } = this.props
-        console.log(stories.stories)
-        console.log(match.params.storyId)
         const modules = {
             toolbar: [
               false

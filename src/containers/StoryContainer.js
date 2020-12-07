@@ -23,7 +23,6 @@ class StoryContainer extends Component {
             toggleReadStory: false,
             filteredStories: [...this.props.stories.stories]
         })}
-        console.log(this.props.stories.stories)
     }
 
     handleOnClick = () => {
@@ -80,7 +79,6 @@ class StoryContainer extends Component {
     }
 
     render(){
-        console.log(this.state)
         const { filteredStories } = this.state
         const renderStories = Object.keys(filteredStories).map(storyId =>
         <div className="story-link" key={'story-link' + storyId}>

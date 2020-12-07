@@ -3,7 +3,6 @@ import React from 'react'
 import ReactQuill from 'react-quill'
 
 const Comment = ({ comment }) => {
-    console.log(comment)
     
     const modules = {
         toolbar: [

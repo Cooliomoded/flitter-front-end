@@ -28,7 +28,6 @@ class App extends Component {
   }
 
   render(){
-    console.log(this.props.user.currentUser)
   return (
     <div className="App">
     <Switch>
@@ -39,8 +38,8 @@ class App extends Component {
       {/* <Route path='/index/:storyId' component={StoryShow} /> */}
       <Route path="/support" component={Support} />
       <Route path="/my-stories" render={routerProps => <UserStories {...routerProps} user={this.props.user} />} />
-      <Route path="/write" component={StoryWrite} />
-      <Route path="/my-comments" component={Comments} />
+      <Route path="/write" render={routerProps => <StoryWrite {...routerProps} user={this.props.user} />} />
+      <Route path="/my-comments" render={routerProps => <Comments {...routerProps} user={this.props.user} />} />
      </Switch>
     </div>
   )};

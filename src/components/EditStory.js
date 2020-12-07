@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import Comment from './Comment'
 
-import { editStory, createStoryGenres, removeStoryGenres } from '../actions/storyActions'
+import { editStory } from '../actions/storyActions'
 
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -99,22 +99,11 @@ class EditStory extends Component {
         }
         console.log(story)
         this.props.editStory(story)
-        if (story.addedIds.length > 0) {
-             story.addedIds.map(id =>
-                 createStoryGenres(story.storyId, id)
-             )
-        }
-        if (story.removedIds.length > 0) {
-            story.removedIds.map(id =>
-                removeStoryGenres(story.storyId, id))
-        }
     }
 
     render(){
-        console.log(this.props)
         const { handleCardDismount } = this.props
         return(
-
             <div className='under-nav'>
                 <div className='quill-title'>
                     <input onChange={this.handleTitleOnChange} type='text' name='title' value={this.state.title}></input>

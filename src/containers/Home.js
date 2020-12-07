@@ -13,7 +13,6 @@ import { getProfileFetch } from '../actions/loginActions'
 class Home extends Component {
 
     render() {
-        console.log(this.props)
         return(
             <div className='home-page'>
                     <div>

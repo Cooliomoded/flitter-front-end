@@ -13,9 +13,8 @@ class UserStories extends Component {
         toggleEditStory: false
     }
 
-    async componentDidMount(){
-        await mapStateToProps
-        if (this.props.user.currentUser.stories){
+    componentDidMount(){
+        if (this.props.user.currentUser.stories && this.props.user.currentUser.stories.length > 0){
         let userStoryArray = this.props.user.currentUser.stories.map(
             story => this.props.stories.stories.find(
                 userStory => userStory.id === story.id))
@@ -50,7 +49,7 @@ class UserStories extends Component {
         return(
             <div>
                 <NavBar handleMyProfile={this.handleCardDismount}></NavBar>
-                {!this.state.toggleEditStory ? renderStories : null}
+                {!this.state.toggleEditStory ? renderStories : <h3>Submit Some Stories!</h3>}
                 <Route path={`${this.props.match.url}/:storyId`} render={routerProps =><EditStory {...routerProps} handleCardDismount={this.handleCardDismount} stories={this.props.stories.stories}/>}/>
             </div>
             

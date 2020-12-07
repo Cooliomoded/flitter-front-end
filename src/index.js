@@ -13,15 +13,13 @@ import loginReducer from './reducers/loginReducer'
 import logoutReducer from './reducers/logoutReducer'
 import genreReducer from './reducers/genreReducer'
 import storyReducer from './reducers/storyReducer'
-import userReducer from './reducers/userReducer'
 import './index.css'
 
 const rootReducer = combineReducers({
   login: loginReducer,
   logout: logoutReducer,
   genre: genreReducer,
-  story: storyReducer,
-  user: userReducer
+  story: storyReducer
 })
 
 const composeEnhancers =

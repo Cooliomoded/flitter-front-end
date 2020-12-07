@@ -29,7 +29,6 @@ class StoryWrite extends Component {
         this.setState({
             [name]: value
         })
-        console.log(this.state)
     }
 
     handleTextOnChange = (content) => {
@@ -37,7 +36,6 @@ class StoryWrite extends Component {
             ...this.state,
             text: content
         })
-        console.log(this.state)
     }
 
     addGenre = (event) => {
@@ -52,7 +50,6 @@ class StoryWrite extends Component {
 
     removeGenre = (event) => {
         let genreId = this.props.genres.genres.find(genre => genre.genre === event.target.value)
-        console.log(genreId)
         this.setState({
             ...this.state,
             genres: [...this.state.genres.filter(name => name !== genreId.genre)],
@@ -79,13 +76,11 @@ class StoryWrite extends Component {
       ]
 
     submitStory = () => {
-        console.log(this.state)
         let story = this.state
         this.props.createStory(story)
     }
 
     render() {
-        console.log(this.props)
     return(
         <div>
             <NavBar></NavBar>
@@ -111,7 +106,7 @@ class StoryWrite extends Component {
                         <select onChange={this.addGenre} name="genre-selector" id="genre-selector">
                             <option>Select at least one Genre</option>
                             {this.props.genres.genres.map(genre =>
-                                !this.state.genres.includes(genre.genre) ? <option key={genre.id} value={genre.genre}>{genre.genre}</option> : null)}
+                                !this.state.genres.includes(genre.genre) ? <option key={"dropdown" + genre.id} value={genre.genre}>{genre.genre}</option> : null)}
                         </select>
                     </div>
                         <div className='genre-selections'>
@@ -145,4 +140,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, {createStory} )(StoryWrite) 
+export default connect(mapStateToProps, {createStory})(StoryWrite) 

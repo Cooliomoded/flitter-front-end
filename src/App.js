@@ -1,7 +1,7 @@
 import React from 'react'
 import { Component } from 'react'
 
-import { Route, Switch, Redirect } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 
 import { connect } from 'react-redux'
 
@@ -21,10 +21,10 @@ import './App.css';
 
 class App extends Component {
 
-  async componentDidMount(){
+  componentDidMount(){
     this.props.getProfileFetch()
     this.props.fetchGenres()
-    await this.props.fetchStories()
+    this.props.fetchStories()
   }
 
   render(){

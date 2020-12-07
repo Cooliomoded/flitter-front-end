@@ -22,10 +22,6 @@ class EditStory extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props)
-        console.log(this.props.stories[this.props.match.params.storyId])
-        console.log(this.props.stories[this.props.match.params.storyId].genres.map(genre => genre.genre))
-        
         this.setState({
             ...this.state,
             title: this.props.stories[this.props.match.params.storyId].title,

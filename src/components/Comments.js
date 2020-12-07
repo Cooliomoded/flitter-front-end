@@ -9,10 +9,11 @@ class Comments extends Component {
 
     render(){
         return(
-            <div className="under-nav">
+            <div>
                 <div>
                     <UserNavBar></UserNavBar>
                 </div>
+                <div className='under-nav'>
                 {this.props.userComments
                 ? this.props.userComments.map(comment =>
                 <div>
@@ -22,6 +23,7 @@ class Comments extends Component {
                     <Comment comment={comment}></Comment>
                 </div>)
                 : <p>Help those writers out and make some comments!</p>}
+                </div>
             </div>
         )
     }

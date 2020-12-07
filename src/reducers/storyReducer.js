@@ -9,35 +9,37 @@ export default function storyReducer(state = initialState, action) {
     let genreIdx
     switch(action.type) {
         case "REQUEST_STORIES":
-            console.log('made it to request stories')
             return {
                 ...state,
                 requesting: true
             }
 
         case "GET_STORIES":
-            console.log('made it to get stories')
             return {
                 stories: action.stories,
                 requesting: false
             }
         
         case "ADD_STORY":
-            console.log('made it to add story')
             return {
                 ...state,
              requesting: true
             }
+        
+        case "ADDED_STORY":
+            return {
+                ...state,
+                stories: [...state.stories, action.storyD],
+                requesting: false
+            }
 
         case "PRE_UPDATE_STORY":
-            console.log('made it to pre update')
             return {
                 ...state,
                 requesting: true
             }
 
         case "UPDATE_STORY":
-            console.log('made it to update story')
             idx = state.stories.findIndex(story => story.id === action.storyD.id)
             return {
                 ...state,
@@ -48,18 +50,14 @@ export default function storyReducer(state = initialState, action) {
             }
 
         case "PRE_LIKE":
-            console.log('made it to pre like')
             return {
                 ...state,
                 requesting: true
             }
 
         case "LIKE_STORY":
-            console.log('made it to post like')
             idx = state.stories.findIndex(story => story.id === action.storyD.id)
             story = state.stories[idx]
-            console.log(action.storyD)
-            console.log('hit like')
             return {
                 ...state,
                 stories: [...state.stories.slice(0, idx),
@@ -69,14 +67,12 @@ export default function storyReducer(state = initialState, action) {
             }
         
         case "PRE_READ":
-            console.log('made it to pre read')
             return {
                 ...state,
                 requesting: true
             }
         
         case "READ_STORY":
-            console.log('made it to read story')
             idx = state.stories.findIndex(story => story.id === action.storyD.id)
             story = state.stories[idx]
             console.log(action.storyD)
@@ -88,7 +84,6 @@ export default function storyReducer(state = initialState, action) {
                 requesting: false
             }
         case "PRE_EDIT":
-            console.log('made it to pre edit')
             return {
                 ...state,
                 requesting: true
@@ -96,8 +91,6 @@ export default function storyReducer(state = initialState, action) {
         
         case "EDIT_STORY":
             idx = state.stories.findIndex(story => story.id === action.storyD.id)
-            console.log(action.storyD)
-            console.log('made it to edit')
             return {
                 ...state,
                 stories: [...state.stories.slice(0, idx),
@@ -107,25 +100,22 @@ export default function storyReducer(state = initialState, action) {
             }
         
         case "PRE_ADD_GENRE":
-            console.log('made it to pre add genre')
             return {
                 ...state,
                 requesting: true
             }
 
         case "POST_ADD_GENRE":
-            console.log('made it to post add genre')
             idx = state.stories.findIndex(story => story.id === action.genre.storyId)
             story = state.stories[idx]
             return {
                 ...state,
                 stories: [...state.stories.slice(0, idx),
-                    {...story, genres: [...story.genres, action.genre]},
+                    {...story, genres: [...story.genres, action.genre.genre]},
                     ...state.stories.slice(idx + 1)],
             }
 
         case "PRE_REMOVE_GENRE":
-            console.log('made it to pre remove genre')
             return {
                 ...state,
                 requesting: true

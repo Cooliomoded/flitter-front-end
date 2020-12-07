@@ -15,12 +15,10 @@ class UserStories extends Component {
 
     async componentDidMount(){
         await mapStateToProps
-        console.log(this.props.user)
         if (this.props.user.currentUser.stories){
         let userStoryArray = this.props.user.currentUser.stories.map(
             story => this.props.stories.stories.find(
                 userStory => userStory.id === story.id))
-        console.log(userStoryArray)
         this.setState({
             userStories: [...userStoryArray]
         })

@@ -2,7 +2,7 @@ import React from 'react'
 
 const StoryCard = ({ story }) => {
     return(
-        <div>
+        <div className='story-card'>
             <h3>{story.title}</h3>
             {story.genres.map(genre => <li key={story.id + " " + genre.genre}>{genre.genre}</li>)}
             <h3>By: {story.user.penname}</h3>

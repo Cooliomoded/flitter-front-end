@@ -49,6 +49,7 @@
 }
 
 .nav-bar {
+  z-index: 1;
   position: fixed;
   top: 0vh;
   vertical-align: middle;
@@ -80,9 +81,11 @@
 
 .quill-container {
   margin: 1rem 4rem;
-  margin-top: 100px;
-  background: grey;
   font-family: sans-serif;
+}
+
+.quill-title { 
+  padding-top: 100px
 }
 
 .story-page {
@@ -90,11 +93,15 @@
 }
 
 .under-nav {
+  top: 100px;
   padding: 0px 10px;
   margin-top: 100px;
 }
 
 .comment {
-  max-width: 80%;
-  margin: 20px;
+  z-index: 2;
+  margin-top: 3%;
+  margin-bottom: 3%;
+  margin-left: 5%;
+  margin-right: 5%;
 }

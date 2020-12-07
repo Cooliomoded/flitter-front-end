@@ -87,47 +87,51 @@ class StoryWrite extends Component {
     render() {
         console.log(this.props)
     return(
-        <div className='quill-container'>
+        <div>
             <NavBar></NavBar>
-            <div className='quill-title'>
-                <input onChange={this.handleTitleOnChange} type='text' name='title' value={this.state.title} placeholder='Title your Story'></input>
-            </div>
-            <div className='quill-surface'>
-            <ReactQuill
-                value={this.state.text}
-                onChange={this.handleTextOnChange}
-                theme='snow'
-                modules={this.modules}
-                formats={this.formats}
-                placeholder="Make these words the best they can be."
-            >
-            </ReactQuill>
-            </div>
-            <div>
-            <div className="genre-selector">
-                <label htmlFor="genre-selector">Story Genre Selector</label>
-                <select onChange={this.addGenre} name="genre-selector" id="genre-selector">
-                    <option>Select at least one Genre</option>
-                    {this.props.genres.genres.map(genre =>
-                        !this.state.genres.includes(genre.genre) ? <option key={genre.id} value={genre.genre}>{genre.genre}</option> : null)}
-                </select>
-            </div>
-                <div className='genre-selections'>
-                    <p>Story Genres:</p>
-                    {this.state.genres.map(genre =>
-                         <button onClick={this.removeGenre} value={genre}>{genre}</button>
-                    )}
-                    {this.state.genres.length > 0 ? <p>Click to remove genre from list of genres</p> : null }
+            <div className='under-nav'>
+                <div className='quill-container'>
+                    <div className='quill-title'>
+                        <input onChange={this.handleTitleOnChange} type='text' name='title' value={this.state.title} placeholder='Title your Story'></input>
+                    </div>
+                    <div className='quill-surface'>
+                    <ReactQuill
+                        value={this.state.text}
+                        onChange={this.handleTextOnChange}
+                        theme='snow'
+                        modules={this.modules}
+                        formats={this.formats}
+                        placeholder="Make these words the best they can be."
+                    >
+                    </ReactQuill>
+                    </div>
+                    <div>
+                    <div className="genre-selector">
+                        <label htmlFor="genre-selector">Story Genre Selector</label>
+                        <select onChange={this.addGenre} name="genre-selector" id="genre-selector">
+                            <option>Select at least one Genre</option>
+                            {this.props.genres.genres.map(genre =>
+                                !this.state.genres.includes(genre.genre) ? <option key={genre.id} value={genre.genre}>{genre.genre}</option> : null)}
+                        </select>
+                    </div>
+                        <div className='genre-selections'>
+                            <p>Story Genres:</p>
+                            {this.state.genres.map(genre =>
+                                 <button onClick={this.removeGenre} value={genre}>{genre}</button>
+                            )}
+                            {this.state.genres.length > 0 ? <p>Click to remove genre from list of genres</p> : null }
+                        </div>
+                    </div>
+                    <div>
+                        {this.state.title.length > 6 ?
+                        (this.state.text.length > 20 ?
+                        (this.state.genres.length > 0 ?
+                        <button onClick={this.submitStory}>Submit Story</button>
+                        : null)
+                        : null)
+                        : null}
+                    </div>
                 </div>
-            </div>
-            <div>
-                {this.state.title.length > 6 ?
-                (this.state.text.length > 20 ?
-                (this.state.genres.length > 0 ?
-                <button onClick={this.submitStory}>Submit Story</button>
-                : null)
-                : null)
-                : null}
             </div>
         </div>
     )}

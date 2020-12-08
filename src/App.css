@@ -54,10 +54,12 @@
   top: 0vh;
   vertical-align: middle;
   margin-bottom: 20px;
-  background-color:#ababa2;
+  background-color:#e0d9c3;
   width: 100%;
-  height: 100px;
-  padding: 0px 10px;
+  height: 38px;
+  padding: 30px 10px;
+  border: 2px #a5a69c solid;
+  border-radius: 5px;
 }
 
 .genre-filter {
@@ -67,16 +69,26 @@
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
   left: 0;
-  background-color:#ababa2; /* Black */
+  background-color:#e0d9c3; /* Black */
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 20px;
   margin-top: 100px;
+  border: 2px #a5a69c solid;
+  border-radius: 5px;
 }
 
 .story-container {
   margin-left: 160px; /* Same as the width of the sidebar */
   padding: 0px 10px;
   margin-top: 100px;
+}
+
+.quill {
+  width: 80%;
+  margin-top: 3%;
+  margin-bottom: 3%;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .quill-container {
@@ -90,6 +102,13 @@
 
 .story-page {
   margin-top: 100px;
+}
+
+.story-page-content {
+  margin-top: 3%;
+  margin-bottom: 3%;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .under-nav {
@@ -107,10 +126,11 @@
 }
 
 input[type=text] {
-  width: 100%;
+  width: 80%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
+  font-size: 20px;
 }
 
 input[type=textarea] {
@@ -119,4 +139,36 @@ input[type=textarea] {
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
+}
+
+input[type=password] {
+  width: 40%;
+  height: 50px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  font-size: 20px;
+}
+
+li {
+  list-style-type: none;
+}
+
+.story-card:visited {
+  margin-top: 20px;
+  font: grey;
+  outline-color: grey;
+}
+
+.story-card {
+  flex: 0 1 18%;
+  background-color: #dbd7ca;
+  margin: 2%;
+  padding: 1%;
+  border: 2px #a5a69c solid;
+  border-radius: 5px;
+  transition: 0.75s;
+  color: #6b685f;
+  padding: 12px 30px;
+  text-decoration: none;
 }

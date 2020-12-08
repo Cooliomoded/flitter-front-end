@@ -6,13 +6,13 @@ const link = {
     width: '100px',
     padding: '12px',
     margin: '0 6px 6px',
-    background: 'blue',
+    background: '#6b685f',
     textDecoration: 'none',
-    color: 'white',
+    color: 'lightgrey',
   }
 
 const clickedLink = {
-    background: 'darkblue'
+    background: '#524f45'
   }
 
 class UserNavBar extends Component {

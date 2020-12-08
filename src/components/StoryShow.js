@@ -95,7 +95,7 @@ class StoryShow extends Component {
             : null
             }
             { stories.stories.length > 0 ?
-            <div className="story-page-content">
+            <div className="story-page-content comment">
                 <ReactQuill
                     readOnly={true}
                     value={ stories.stories[match.params.storyId].content}

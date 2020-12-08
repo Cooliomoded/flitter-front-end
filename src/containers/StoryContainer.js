@@ -47,7 +47,6 @@ class StoryContainer extends Component {
             genreFilter: [...this.state.genreFilter, event.target.value],
             filteredStories: [...this.state.filteredStories.filter(story => story.genres.some(genre => genre.genre === event.target.value))],
         })
-        console.log(this.state)
     }
 
     handleRemoveGenreFilter = (event) => {

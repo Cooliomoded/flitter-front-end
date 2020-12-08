@@ -41,7 +41,7 @@ class UserStories extends Component {
         const storyIds = userStories.map(story => story.id)
         const renderStories = storyIds.map(storyId =>
         <div className="under-nav story-link" key={'edit-story-link' + storyId}>
-            <Link onClick={this.handleOnClick} to={`/my-stories/${storyId - 1}`}><StoryCard story={this.props.stories.stories[storyId - 1]}></StoryCard></Link>
+            <Link className="edit-link" onClick={this.handleOnClick} to={`/my-stories/${storyId - 1}`}><StoryCard story={this.props.stories.stories[storyId - 1]}></StoryCard></Link>
         </div>
         )
     // console.log(this.props.stories.stories)

@@ -14,7 +14,7 @@ class Comments extends Component {
                     <UserNavBar></UserNavBar>
                 </div>
                 <div className='under-nav'>
-                {this.props.userComments.length > 0
+                {this.props.userComments && this.props.userComments.length > 0
                 ? this.props.userComments.map(comment =>
                 <div>
                     <h3>Commented On:</h3>

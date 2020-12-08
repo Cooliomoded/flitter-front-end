@@ -15,7 +15,7 @@ class Comments extends Component {
                 </div>
                 <div className='under-nav'>
                 {this.props.userComments && this.props.userComments.length > 0
-                ? this.props.userComments.map(comment =>
+                ? this.props.userComments.reverse().map(comment =>
                 <div>
                     <h3>Commented On:</h3>
                     <StoryCard story={this.props.stories.find(story => story.id === comment.story_id)}></StoryCard>

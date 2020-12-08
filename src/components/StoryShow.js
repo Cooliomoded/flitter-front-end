@@ -137,7 +137,7 @@ class StoryShow extends Component {
             {stories.stories.length > 0 ?
             <div className="story-page-comments">
                 <h4>Comments:</h4>
-                {stories.stories[match.params.storyId].comments.map(comment => 
+                {stories.stories[match.params.storyId].comments.reverse().map(comment => 
                     <Comment key={comment.id} comment={comment}></Comment>)}
             </div>
             : null }

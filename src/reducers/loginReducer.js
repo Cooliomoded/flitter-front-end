@@ -50,6 +50,14 @@ export default function loginReducer(state = initialState, action) {
                 genres: [...story.genres, action.genre]}]},
                 requesting: false
             }
+
+        case 'USER_POSTED_COMMENT':
+            return {
+                ...state,
+                currentUser: {...state.currentUser,
+                comments: [...state.currentUser.comments, action.commentD]},
+                requesting: false
+            }
         default:
             return state
     }

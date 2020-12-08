@@ -50,10 +50,6 @@ class Login extends Component {
         // this.props.user ? <Redirect to='/index'/>
     return(
         <div className="not-login">
-
-            <NavLink className="navlink" to='/index' style={link} activeStyle={clickedLink}>
-               Stories Index
-            </NavLink>
             <div className="login">
                 <form onSubmit={this.handleSubmit}>
                     <h3>Welcome to Flitter</h3>

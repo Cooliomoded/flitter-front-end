@@ -22,6 +22,7 @@ export const postComment = (comment) => {
             let commentD = data.comment
             console.log(commentD)
             dispatch({type:'POSTED_COMMENT', commentD})
+            dispatch({type:'USER_POSTED_COMMENT', commentD})
         })
     }
 }
